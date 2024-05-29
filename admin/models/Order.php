@@ -2,9 +2,13 @@
 require_once(ROOT.'/components/Db.php');
 class Order
 {
-    public static function getList($status){
+    public static function getList($status, $sort){
 
         $db = Db::getConnection();
+
+        if(isset($sort) && !empty($sort)){
+            $sort = explode('-',$sort);
+        }
 
         $query_count = "select id from relationOrder where status = {$status}";
         $result_count = $db->query($query_count);
@@ -20,7 +24,11 @@ class Order
         $num_2 = 0;
         for($i = 0; $i < $result_count->rowCount(); $i++){
 
-            $query_type = "select type from relationOrder where status = {$status} limit {$i}, 1";
+            $query_type = "select type from relationOrder where status = {$status}";
+            if(isset($sort) && !empty($sort)){
+                $query_type .= " order by {$sort[0]} {$sort[1]}";
+            }
+            $query_type .= " limit {$i}, 1";
             $result_type = $db->query($query_type);
             $type = $result_type->fetch(PDO::FETCH_NUM)[0];
 
@@ -33,7 +41,14 @@ class Order
                 $i_limit = $i_visitor;
             }
 
-            $query = "select relationOrder.id as id, idUser, countCat as count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status} limit {$i_limit}, 1";
+            $query = "select relationOrder.id as id, idUser, countCat as count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status}";
+
+            if(isset($sort) && !empty($sort)){
+                $query .= " order by {$sort[0]} $sort[1]";
+            }
+
+            // Limit
+            $query .= " limit {$i_limit}, 1";
 
             $result = $db->query($query);
             $row = $result->fetch(PDO::FETCH_ASSOC);

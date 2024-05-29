@@ -12,7 +12,6 @@ require_once(ROOT.'/views/header.php');
                     <ul class="account__menu">
                         <li class="account__menu--list active"><a href="my-account.html">Dashboard</a></li>
                         <li class="account__menu--list"><a href="my-account-2.html">Addresses</a></li>
-                        <li class="account__menu--list"><a href="wishlist.html">Wishlist</a></li>
                         <li class="account__menu--list"><a href="/user/exit">Log Out</a></li>
                     </ul>
                 </div>
@@ -25,61 +24,21 @@ require_once(ROOT.'/views/header.php');
                                 <tr class="account__table--header__child">
                                     <th class="account__table--header__child--items">Order</th>
                                     <th class="account__table--header__child--items">Date</th>
-                                    <th class="account__table--header__child--items">Payment Status</th>
-                                    <th class="account__table--header__child--items">Fulfillment Status</th>
+                                    <th class="account__table--header__child--items">Orders Status</th>
+                                    <th class="account__table--header__child--items">Address</th>
                                     <th class="account__table--header__child--items">Total</th>
                                 </tr>
                                 </thead>
                                 <tbody class="account__table--body mobile__none">
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#2014</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Unfulfilled</td>
-                                    <td class="account__table--body__child--items">$40.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#2024</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Fulfilled</td>
-                                    <td class="account__table--body__child--items">$44.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#2164</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Unfulfilled</td>
-                                    <td class="account__table--body__child--items">$36.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#2345</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Unfulfilled</td>
-                                    <td class="account__table--body__child--items">$87.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#1244</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Fulfilled</td>
-                                    <td class="account__table--body__child--items">$66.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#3455</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Fulfilled</td>
-                                    <td class="account__table--body__child--items">$55.00 USD</td>
-                                </tr>
-                                <tr class="account__table--body__child">
-                                    <td class="account__table--body__child--items">#4566</td>
-                                    <td class="account__table--body__child--items">November 24, 2022</td>
-                                    <td class="account__table--body__child--items">Paid</td>
-                                    <td class="account__table--body__child--items">Unfulfilled</td>
-                                    <td class="account__table--body__child--items">$87.00 USD</td>
-                                </tr>
+                                <?php foreach($orders as $tmp): ?>
+                                    <tr class="account__table--body__child">
+                                        <td class="account__table--body__child--items">#<?=$tmp['id']?></td>
+                                        <td class="account__table--body__child--items"><?=$tmp['data']['month']?> <?=$tmp['data']['day']?>, <?=$tmp['data']['year']?></td>
+                                        <td class="account__table--body__child--items"><?=$tmp['status']?></td>
+                                        <td class="account__table--body__child--items"><?=$tmp['adress']?></td>
+                                        <td class="account__table--body__child--items">$<?=$tmp['totalPrice']?> USD</td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                                 <tbody class="account__table--body mobile__block">
                                 <tr class="account__table--body__child">

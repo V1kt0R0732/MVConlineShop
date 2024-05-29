@@ -311,13 +311,13 @@
                                     <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><ellipse cx="256" cy="256" rx="267.57" ry="173.44" transform="rotate(-45 256 256.002)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M334.04 177.96L177.96 334.04M278.3 278.3l-44.6-44.6M322.89 233.7l-44.59-44.59M456.68 211.4L300.6 55.32M211.4 456.68L55.32 300.6M233.7 322.89l-44.59-44.59"/></svg> Всі Категорії
                                 </a>
                             </li>
-                            <?php foreach($cat as $tmp): ?>
+                            <?php if(isset($cat) && !empty($cat)){ foreach($cat as $tmp): ?>
                             <li class="categories__menu--items">
                                 <a class="categories__menu--link" href="/catalog/index/<?=$tmp['id']?>/1">
                                     <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><ellipse cx="256" cy="256" rx="267.57" ry="173.44" transform="rotate(-45 256 256.002)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M334.04 177.96L177.96 334.04M278.3 278.3l-44.6-44.6M322.89 233.7l-44.59-44.59M456.68 211.4L300.6 55.32M211.4 456.68L55.32 300.6M233.7 322.89l-44.59-44.59"/></svg> <?=$tmp['name']?>
                                 </a>
                             </li>
-                            <?php endforeach; ?>
+                            <?php endforeach;} ?>
 
 <!--                            <li class="categories__menu--items">-->
 <!--                                <a class="categories__menu--link" href="shop.html">-->

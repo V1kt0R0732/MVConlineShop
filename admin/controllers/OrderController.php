@@ -7,7 +7,14 @@ class OrderController
 
         if(isset($_SESSION['user_status'], $_SESSION['user_avatar'], $_SESSION['user_name'], $_SESSION['user_email']) && !empty($_SESSION['user_name']) && !empty($_SESSION['user_avatar']) && !empty($_SESSION['user_status']) && !empty($_SESSION['user_email'])) {
 
-            $orders = Order::getList(1);
+            if(isset($_POST['sort']) && !empty($_POST['sort'])){
+                $sort = $_POST['sort'];
+            }
+            else{
+                $sort = 0;
+            }
+
+            $orders = Order::getList(1, $sort);
             require_once(ROOT.'/views/order/showAll.php');
 
         }
@@ -76,7 +83,7 @@ class OrderController
 
         if(isset($_SESSION['user_status'], $_SESSION['user_avatar'], $_SESSION['user_name'], $_SESSION['user_email']) && !empty($_SESSION['user_name']) && !empty($_SESSION['user_avatar']) && !empty($_SESSION['user_status']) && !empty($_SESSION['user_email'])) {
 
-            $orders = Order::getList(0);
+            $orders = Order::getList(0, 0);
             require_once(ROOT.'/views/order/showArchiv.php');
 
         }

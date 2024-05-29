@@ -2,6 +2,8 @@
 return array(
 
 
+    'admin/clients/list'=>'client/showAll',
+
     'admin/order/archiv/remove/([0-9]+)'=>'order/archivRemove/$1',
     'admin/order/archiv/add/([0-9]+)'=>'order/archivAdd/$1',
     'admin/order/archiv/list'=>'order/archivList',

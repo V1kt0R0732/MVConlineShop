@@ -86,6 +86,8 @@ class UserController
 
     public function actionProfile(){
 
+        $orders = User::getOrders($_SESSION['user']['id']);
+
         require_once(ROOT.'/views/user/profile.php');
 
         return true;

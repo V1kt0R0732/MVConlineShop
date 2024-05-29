@@ -69,11 +69,46 @@ class User
 
     }
 
-    public static function getOrders(){
+    public static function getOrders($id){
 
         $db = Db::getConnection();
 
-        $query = "";
+        $query = "select relationOrder.id as id, dataCat, countCat, price, relationOrder.adress as adress, status from products inner join relationOrder on products.id = relationOrder.idCat inner join client on relationOrder.idUser = client.id where idUser = {$id} order by dataCat desc;";
+        $result = $db->query($query);
+        $orders = [];
+        $old_data = 0;
+        $num = -1;
+        $months = ['01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June','07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December'];
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
+            if($old_data != $row['dataCat']){
+                $num++;
+                $data = explode('-', explode(' ',$row['dataCat'])[0]);
+                if($row['status'] == 1){
+                    $orders[$num]['status'] = 'Замовлення Обробляється';
+                }
+                else{
+                    $orders[$num]['status'] = 'Замовлення Вже їде до вас';
+                }
+                $orders[$num]['id'] = $row['id'];
+                $orders[$num]['dataCat'] = $row['dataCat'];
+                $orders[$num]['totalPrice'] = 0;
+                $orders[$num]['data']['year'] = $data[0];
+                $orders[$num]['data']['month'] = $months[$data[1]];
+                $orders[$num]['data']['day'] = $data[2];
+                $orders[$num]['adress'] = $row['adress'];
+
+
+            }
+
+            $orders[$num]['totalPrice'] += $row['price'] * $row['countCat'];
+
+            $old_data = $row['dataCat'];
+
+        }
+        //print_r($orders);
+
+        return $orders;
 
     }
 

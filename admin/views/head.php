@@ -232,6 +232,19 @@
                         <span class="nav-label">Архив</span>
                     </a>
                 </li>
+                <li class="heading">Clients</li>
+                <li>
+                    <a href="/admin/clients/list">
+                        <i class="sidebar-item-icon fa fa-users"></i>
+                        <span class="nav-label">All Clients</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/order/archiv/list">
+                        <i class="sidebar-item-icon fa fa-folder"></i>
+                        <span class="nav-label">Архив</span>
+                    </a>
+                </li>
                 <?php if($_SESSION['user_status'] == "Owner"){ ?>
                 <li class="heading">User</li>
                 <li>

@@ -8,6 +8,7 @@ require_once(ROOT.'/views/head.php');
             <div class="ibox-head">
                 <div class="ibox-title">All Orders</div>
 
+
                 <!--
                 <form class="form-inline" action="/admin/productAll" method="post">
                     <div class="form-group row">
@@ -21,6 +22,16 @@ require_once(ROOT.'/views/head.php');
                 -->
             </div>
             <div class="ibox-body">
+                <form class="form-inline" method="post" action="/admin/order/list">
+                    <label class=" mb-2 mr-sm-2 mb-sm-0">Sort By: </label>
+                    <select class="form-control mb-2 mr-sm-2 mb-sm-0" name="sort">
+                        <option value="dataCat-asc" <?php if(isset($_POST['sort']) && $_POST['sort'] == 'dataCat-asc') echo "selected"; ?>>Сортування по Даті - asc</option>
+                        <option value="dataCat-desc" <?php if(isset($_POST['sort']) && $_POST['sort'] == 'dataCat-desc') echo "selected"; ?>>Сортування по Даті - desc</option>
+                        <option value="adress-asc" <?php if(isset($_POST['sort']) && $_POST['sort'] == 'adress-asc') echo "selected"; ?>>Сортування по Адресі - asc</option>
+                        <option value="adress-desc" <?php if(isset($_POST['sort']) && $_POST['sort'] == 'adress-desc') echo "selected"; ?>>Сортування по Адресі - desc</option>
+                    </select>
+                    <input class="btn-success btn-rounded" type="submit" name="send" value="Сортувати">
+                </form>
                 <?php if(!empty($orders)){ ?>
                     <div class="table-responsive">
                         <?php foreach($orders as $tmp): ?>
