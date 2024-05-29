@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="MVSonlineShop" uploadOnCheckin="f1711768-92e8-4ce2-b091-8e8d107ee74f" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="MVSonlineShop">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="MVSonlineShop" />
+  </component>
+</project>
