@@ -41,7 +41,7 @@ class Order
                 $i_limit = $i_visitor;
             }
 
-            $query = "select relationOrder.id as id, idUser, countCat as count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status}";
+            $query = "select relationOrder.id as id, idUser, countCat as count, products.count as total_count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status}";
 
             if(isset($sort) && !empty($sort)){
                 $query .= " order by {$sort[0]} $sort[1]";
@@ -67,6 +67,18 @@ class Order
             }
             $grand_price += $row['price'] * $row['count'];
 
+            if(!isset($orders[$num]['status'])){
+                $orders[$num]['status'] = 'good';
+            }
+            if(($row['total_count'] - $row['count']) < 0){
+                if($orders[$num]['status'] == 'good'){
+                    $orders[$num]['status'] = $row['product'];
+                }
+                else{
+                    $orders[$num]['status'] .= ', '.$row['product'];
+                }
+
+            }
             $orders[$num]['num'] = $num + 1;
             $orders[$num]['id'] = $row['id'];
             $orders[$num]['idUser'] = $row['idUser'];
@@ -85,6 +97,7 @@ class Order
             $orders[$num]['products'][$num_2]['count'] = $row['count'];
             $orders[$num]['products'][$num_2]['num'] = $num_2 + 1;
             $orders[$num]['products'][$num_2]['total_price'] = $row['price'] * $row['count'];
+
 
             $last_first_name = $row['first_name'];
             $last_last_name = $row['last_name'];
@@ -139,12 +152,21 @@ class Order
 
         $db = Db::getConnection();
 
-        $query_time = "select dataCat, idUser from relationOrder where id = {$id}";
-        $result_time = $db->query($query_time);
-        $row_time = $result_time->fetch(PDO::FETCH_ASSOC);
+        $query_user = "select dataCat as data, idUser as id from relationOrder where id = {$id}";
+        $result_user = $db->query($query_user);
+        $user = $result_user->fetch(PDO::FETCH_ASSOC);
 
-        $query = "update relationOrder set status = 0 where idUser = {$row_time['idUser']} and dataCat = '{$row_time['dataCat']}'";
-        $result = $db->query($query);
+        $query_tovar = "select idCat, countCat from relationOrder where idUser = {$user['id']} and dataCat = '{$user['data']}'";
+        $result_tovar = $db->query($query_tovar);
+        while($tovar = $result_tovar->fetch(PDO::FETCH_ASSOC)){
+
+            $query_change = "update products set count = count-{$tovar['countCat']} where id = {$tovar['idCat']}";
+            $db->query($query_change);
+
+        }
+
+        $query = "update relationOrder set status = 0 where idUser = {$user['id']} and dataCat = '{$user['data']}'";
+        $db->query($query);
 
         return true;
 
@@ -153,12 +175,21 @@ class Order
 
         $db = Db::getConnection();
 
-        $query_time = "select dataCat, idUser from relationOrder where id = {$id}";
-        $result_time = $db->query($query_time);
-        $row_time = $result_time->fetch(PDO::FETCH_ASSOC);
+        $query_user = "select dataCat as data, idUser as id from relationOrder where id = {$id}";
+        $result_user = $db->query($query_user);
+        $user = $result_user->fetch(PDO::FETCH_ASSOC);
 
-        $query = "update relationOrder set status = 1 where idUser = {$row_time['idUser']} and dataCat = '{$row_time['dataCat']}'";
-        $result = $db->query($query);
+        $query_tovar = "select idCat, countCat from relationOrder where idUser = {$user['id']} and dataCat = '{$user['data']}'";
+        $result_tovar = $db->query($query_tovar);
+        while($tovar = $result_tovar->fetch(PDO::FETCH_ASSOC)){
+
+            $query_change = "update products set count = count+{$tovar['countCat']} where id = {$tovar['idCat']}";
+            $db->query($query_change);
+
+        }
+
+        $query = "update relationOrder set status = 1 where idUser = {$user['id']} and dataCat = '{$user['data']}'";
+        $db->query($query);
 
         return true;
 

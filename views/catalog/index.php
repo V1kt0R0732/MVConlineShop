@@ -17,11 +17,10 @@ require_once(ROOT.'/views/header.php');
                             <label class="product__view--label">Count :</label>
                             <div class="select shop__header--select">
                                 <select class="product__view--select" name="note">
-                                    <option selected value="1" <?php if($param['note'] == 1) echo 'selected' ?>>1</option>
-                                    <option value="3" <?php if($param['note'] == 3) echo 'selected' ?>>3</option>
-                                    <option value="5" <?php if($param['note'] == 5) echo 'selected' ?>>5</option>
-                                    <option value="10" <?php if($param['note'] == 10) echo 'selected' ?>>10</option>
-                                    <option value="15" <?php if($param['note'] == 15) echo 'selected' ?>>15</option>
+                                    <option selected value="4" <?php if($_SESSION['param']['note'] == 4) echo 'selected' ?>>4</option>
+                                    <option value="8" <?php if($_SESSION['param']['note'] == 8) echo 'selected' ?>>8</option>
+                                    <option value="12" <?php if($_SESSION['param']['note'] == 12) echo 'selected' ?>>12</option>
+                                    <option value="16" <?php if($_SESSION['param']['note'] == 16) echo 'selected' ?>>16</option>
                                 </select>
                             </div>
                         </div>
@@ -88,7 +87,7 @@ require_once(ROOT.'/views/header.php');
                         <button class="btn price__filter--btn" type="submit">Clear</button>
                     </form>
                 </div>
-                <p class="product__showing--count">Showing <?php echo count($product) ?> of <?php echo $param['note']*$count_pages;?> results</p>
+                <p class="product__showing--count">Showing <?php echo count($product) ?> of <?php echo $_SESSION['param']['note']*$count_pages;?> results</p>
             </div>
 
             <div class="row">
@@ -321,21 +320,7 @@ require_once(ROOT.'/views/header.php');
                                 <button class="btn price__filter--btn" type="submit">Filter</button>
                             </form>
                         </div>
-                        <div class="single__widget widget__bg">
-                            <form action="/catalog/index/<?=$_SESSION['param']['cat']?>/1" method="post">
-                            <h2 class="widget__title h3">Count</h2>
-                            <div class="select shop__header--select">
-                                <select name="note" class="product__view--select">
-                                    <option selected value="1" <?php if($param['note'] == 1) echo 'selected' ?>>1</option>
-                                    <option value="3" <?php if($param['note'] == 3) echo 'selected' ?>>3</option>
-                                    <option value="5" <?php if($param['note'] == 5) echo 'selected' ?>>5</option>
-                                    <option value="10" <?php if($param['note'] == 10) echo 'selected' ?>>10</option>
-                                    <option value="15" <?php if($param['note'] == 15) echo 'selected' ?>>15</option>
-                                </select>
-                            </div>
-                            <button class="btn price__filter--btn" type="submit">Apply</button>
-                            </form>
-                        </div>
+
                         <!--
                         <div class="single__widget widget__bg">
                             <h2 class="widget__title h3">Top Rated Product</h2>

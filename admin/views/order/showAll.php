@@ -83,12 +83,21 @@ require_once(ROOT.'/views/head.php');
                             <thead class="thead-default">
                             <tr>
                                 <th colspan="2">Grand Price:</th>
+                            <?php if($tmp['status'] == 'good'){ ?>
                                 <th colspan="3">
                                     <a href="/admin/order/dell/<?=$tmp['id']?>"><button class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></a>
                                 </th>
                                 <th colspan="1">
                                     <a href="/admin/order/archiv/add/<?=$tmp['id']?>"><button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button></a>
                                 </th>
+                            <?php } else { ?>
+                                <th colspan="2">
+                                    <a href="/admin/order/dell/<?=$tmp['id']?>"><button class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></a>
+                                </th>
+                                <th colspan="2">
+                                    Товарів: "<?php echo $tmp['status'];?>" не має в наявності
+                                </th>
+                            <?php } ?>
                                 <th><?=$tmp['grand_price']?></th>
                             </tr>
                             </thead>

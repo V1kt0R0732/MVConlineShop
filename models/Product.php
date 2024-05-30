@@ -75,12 +75,12 @@ class Product
         }
         //echo $query_page;
         $result_page = $db->query($query_page);
-        $count_pages = ceil($result_page->rowCount()/$param['note']);
+        $count_pages = ceil($result_page->rowCount()/$_SESSION['param']['note']);
 
 
-        $skip = ($param['page']-1) * $param['note'];
+        $skip = ($param['page']-1) * $_SESSION['param']['note'];
 
-        $query .= " limit $skip, {$param['note']}";
+        $query .= " limit $skip, {$_SESSION['param']['note']}";
 
 
         //echo $query;

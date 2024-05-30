@@ -43,7 +43,7 @@ class ProductController
 
         if(isset($_SESSION['user_status'], $_SESSION['user_avatar'], $_SESSION['user_name'], $_SESSION['user_email']) && !empty($_SESSION['user_name']) && !empty($_SESSION['user_avatar']) && !empty($_SESSION['user_status']) && !empty($_SESSION['user_email'])) {
 
-            if (isset($_POST['send'], $_POST['product'], $_POST['category'], $_POST['count'], $_POST['price'], $_POST['desc']) && !empty($_POST['product']) && !empty($_POST['category']) && !empty($_POST['count']) && !empty($_POST['price']) && !empty($_POST['desc'])){
+            if (isset($_POST['send'], $_POST['product'], $_POST['category'], $_POST['count'], $_POST['price']) && !empty($_POST['product']) && !empty($_POST['category']) && !empty($_POST['count']) && !empty($_POST['price'])){
 
                 $photo = array();
                 if(isset($_FILES['photo']['error'][0], $_FILES['photo']['name'][0]) && $_FILES['photo']['error'][0] == 0){
@@ -79,7 +79,7 @@ class ProductController
 
             }
             else{
-                $text = "Помилка з добавленням товару";
+                $text = "Помилка з добавленням товару, (Передача даних)";
                 $lvl = 3;
 
             }
@@ -185,7 +185,7 @@ class ProductController
 
         if(isset($_SESSION['user_status'], $_SESSION['user_avatar'], $_SESSION['user_name'], $_SESSION['user_email']) && !empty($_SESSION['user_name']) && !empty($_SESSION['user_avatar']) && !empty($_SESSION['user_status']) && !empty($_SESSION['user_email'])) {
 
-            if(isset($_POST['send'], $_POST['id'], $_POST['product'], $_POST['category'], $_POST['count'], $_POST['price'], $_POST['desc']) && !empty($_POST['desc']) && !empty($_POST['id']) && !empty($_POST['product']) && !empty($_POST['category']) && !empty($_POST['count'] && !empty($_POST['price']))) {
+            if(isset($_POST['send'], $_POST['id'], $_POST['product'], $_POST['category'], $_POST['count'], $_POST['price']) && !empty($_POST['id']) && !empty($_POST['product']) && !empty($_POST['category']) && !empty($_POST['count'] && !empty($_POST['price']))) {
 
                 $photo = array();
                 if(isset($_FILES['photo']['error'][0], $_FILES['photo']['name'][0]) && $_FILES['photo']['error'][0] == 0){
@@ -229,6 +229,10 @@ class ProductController
 
                 }
 
+            }
+            else{
+                $text = "Помилка передачі даних";
+                $lvl = 3;
             }
 
             header("refresh:3;url=/admin/productAll");

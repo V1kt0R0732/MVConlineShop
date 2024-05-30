@@ -34,7 +34,7 @@ require_once(ROOT.'/views/head.php');
                             <div class="col-sm-10">
                                 <select class="form-control input-rounded" name="category">
                                     <?php foreach($cat as $tmp): ?>
-                                        <option value="<?=$tmp['id']?>"><?=$tmp['name']?></option>
+                                        <option value="<?=$tmp['id']?>" <?php if($products['id_cat'] == $tmp['id']) echo 'selected';?>><?=$tmp['name']?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

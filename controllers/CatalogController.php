@@ -20,10 +20,17 @@ class CatalogController
         }
 
         if(isset($_POST['note']) && !empty($_POST['note'])){
-            $param['note'] = $_POST['note'];
+            if(!isset($_SESSION['param']['note'])){
+                $_SESSION['param']['note'] = 8;
+            }
+            if($_SESSION['param']['note'] != $_POST['note']){
+                $_SESSION['param']['note'] = $_POST['note'];
+            }
         }
         else{
-            $param['note'] = 3;
+            if(!isset($_SESSION['param']['note'])){
+                $_SESSION['param']['note'] = 8;
+            }
         }
 
         $_SESSION['param']['cat'] = $cat;

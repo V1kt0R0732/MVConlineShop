@@ -144,7 +144,7 @@ require_once(ROOT.'/views/header.php');
                 </div>
                 <div class="col">
                     <div class="product__details--info">
-                        <form action="#">
+                        <div>
                             <h2 class="product__details--info__title mb-15"><?=$product['name']?></h2>
                             <div class="product__details--info__price mb-15">
                                 <span class="current__price">$<?=$product['price']?></span>
@@ -191,6 +191,7 @@ require_once(ROOT.'/views/header.php');
                                 <span class="product__items--rating__count--number">(24)</span>
                             </div>
                             <p class="product__details--info__desc mb-20"><?=$product['description']?> <br></p>
+                            <!--
                             <div class="product__variant">
                                 <div class="product__variant--list mb-10">
                                     <fieldset class="variant__input--fieldset">
@@ -215,6 +216,7 @@ require_once(ROOT.'/views/header.php');
                                         </div>
                                     </fieldset>
                                 </div>
+
                                 <div class="product__variant--list mb-20">
                                     <fieldset class="variant__input--fieldset">
                                         <legend class="product__variant--title mb-8">Weight :</legend>
@@ -234,6 +236,7 @@ require_once(ROOT.'/views/header.php');
                                         </ul>
                                     </fieldset>
                                 </div>
+
                                 <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                     <div class="quantity__box">
                                         <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
@@ -244,16 +247,17 @@ require_once(ROOT.'/views/header.php');
                                     </div>
                                     <button class="btn quickview__cart--btn" type="submit">Add To Cart</button>
                                 </div>
+                                -->
                                 <div class="product__variant--list mb-15">
-                                    <a class="variant__wishlist--icon mb-15" href="wishlist.html" title="Add to wishlist">
-                                        <svg class="quickview__variant--wishlist__svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
-                                        Add to Wishlist
-                                    </a>
-                                    <button class="variant__buy--now__btn btn" type="submit">Buy it now</button>
+<!--                                    <a class="variant__wishlist--icon mb-15" href="wishlist.html" title="Add to wishlist">-->
+<!--                                        <svg class="quickview__variant--wishlist__svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>-->
+<!--                                        Add to Wishlist-->
+<!--                                    </a>-->
+                                    <a href="/catalog/basket/add/<?=$product['id']?>"><button class="variant__buy--now__btn btn">Add to a Cart</button></a>
                                 </div>
                                 <div class="product__variant--list mb-15">
                                     <div class="product__details--info__meta">
-                                        <p class="product__details--info__meta--list"><strong>Barcode:</strong>  <span> 565461</span> </p>
+                                        <p class="product__details--info__meta--list"><strong>Barcode:</strong>  <span> <?=$product['id']?></span> </p>
                                         <p class="product__details--info__meta--list"><strong>Count:</strong>  <span><?=$product['count']?></span> </p>
                                         <p class="product__details--info__meta--list"><strong>Type:</strong>  <span><?=$product['cat']?></span> </p>
                                     </div>
@@ -556,7 +560,7 @@ require_once(ROOT.'/views/header.php');
                                         </div>
                                     </div>
                                     <div id="writereview" class="reviews__comment--reply__area">
-                                        <form action="#">
+                                        <div>
                                             <h3 class="reviews__comment--reply__title mb-15">Add a review </h3>
                                             <div class="reviews__ratting d-flex align-items-center mb-20">
                                                 <ul class="d-flex">
@@ -613,7 +617,7 @@ require_once(ROOT.'/views/header.php');
                                                 </div>
                                             </div>
                                             <button class="btn text-white" data-hover="Submit" type="submit">SUBMIT</button>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
