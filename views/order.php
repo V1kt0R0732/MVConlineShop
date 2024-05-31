@@ -66,6 +66,10 @@
 <!-- End preloader -->
 
 <!-- Start checkout page area -->
+<div id="alert-alert" class="alert-alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+    <strong></strong>
+</div>
 <div class="checkout__page--area">
     <div class="container">
         <div class="checkout__page--inner d-flex">
@@ -403,7 +407,7 @@
                         <tbody class="checkout__total--body">
                         <tr class="checkout__total--items">
                             <td class="checkout__total--title text-left">Subtotal </td>
-                            <td class="checkout__total--amount text-right">$<?=$grand_total?></td>
+                            <td class="checkout__total--amount text-right">$<?php if(isset($grand_total)) echo $grand_total; ?></td>
                         </tr>
                         <tr class="checkout__total--items">
                             <td class="checkout__total--title text-left">Shipping</td>
@@ -413,7 +417,7 @@
                         <tfoot class="checkout__total--footer">
                         <tr class="checkout__total--footer__items">
                             <td class="checkout__total--footer__title checkout__total--footer__list text-left">Total </td>
-                            <td class="checkout__total--footer__amount checkout__total--footer__list text-right">$<?=$grand_total?></td>
+                            <td class="checkout__total--footer__amount checkout__total--footer__list text-right">$<?php if(isset($grand_total)) echo $grand_total; ?></td>
                         </tr>
                         </tfoot>
                     </table>

@@ -138,11 +138,17 @@ class BasketController
             $result = Basket::setOrder($info, $_SESSION['basket']);
 
             if($result){
-                $_SESSION['basket'] = [];
-                unset($_SESSION['basket']);
+                $grand_total = 0;
+                for($i = 0; $i < count($_SESSION['basket']); $i++){
+                    $grand_total += $_SESSION['basket'][$i]['price'] * $_SESSION['basket'][$i]['count'];
+                }
 
                 header('refresh:3;url=/catalog/index/0/1');
                 require_once(ROOT.'/views/order.php');
+
+                $_SESSION['basket'] = [];
+                unset($_SESSION['basket']);
+
                 echo "<script type='text/javascript'>showAlert('Успішно! Товар замовлено.', 'success');</script>";
 
             }
@@ -154,7 +160,7 @@ class BasketController
         }
         else{
             require_once(ROOT.'/views/order.php');
-            echo "<script type='text/javascript'>showAlert('Успішно! Товар оновлено.', 'warning');</script>";
+            echo "<script type='text/javascript'>showAlert('Помилка в передачі даних', 'warning');</script>";
             header('refresh:3;url=/catalog/order');
 
         }
