@@ -1,6 +1,12 @@
 <?php
 return array(
 
+    'admin/page/dell/resultForm'=>'page/resultDell',
+    'admin/page/update/resultForm'=>'page/resultUpdate',
+
+    'admin/page/update/([0-9]+)'=>'page/update/$1',
+    'admin/page/dell/([0-9]+)'=>'page/dell/$1',
+    'admin/page/list'=>'page/showAll',
 
     'admin/clients/list'=>'client/showAll',
 
@@ -28,6 +34,8 @@ return array(
 
     'admin/user/all'=>'user/showAll',
     'admin/user/profile'=>'user/index',
+
+    'admin/product/popular'=>'product/showPopular',
 
     'admin/product/dellPhoto/resultForm/([0-9]+)'=>'product/resultPhotoDell/$1',
     'admin/product/update/resultForm'=>'product/resultUpdate',

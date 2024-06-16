@@ -219,6 +219,12 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="/admin/product/popular">
+                        <i class="sidebar-item-icon fa fa-search"></i>
+                        <span class="nav-label">Top 3</span>
+                    </a>
+                </li>
                 <li class="heading">Orders</li>
                 <li>
                     <a href="/admin/order/list">
@@ -239,12 +245,7 @@
                         <span class="nav-label">All Clients</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/order/archiv/list">
-                        <i class="sidebar-item-icon fa fa-folder"></i>
-                        <span class="nav-label">Архив</span>
-                    </a>
-                </li>
+
                 <?php if($_SESSION['user_status'] == "Owner"){ ?>
                 <li class="heading">User</li>
                 <li>
@@ -257,6 +258,13 @@
                     <a href="/admin/user/reg">
                         <i class="sidebar-item-icon fa fa-user-plus"></i>
                         <span class="nav-label">Add User</span>
+                    </a>
+                </li>
+                <li class="heading">Setting Page</li>
+                <li>
+                    <a href="/admin/page/list">
+                        <i class="sidebar-item-icon fa fa-gear"></i>
+                        <span class="nav-label">List</span>
                     </a>
                 </li>
                 <?php } ?>

@@ -9,16 +9,20 @@ return array(
     'user/login/result'=>'user/resultLog',
     'user/login'=>'user/login',
 
-    'catalog/order/result'=>'basket/orderResult',
-    'catalog/order'=>'basket/order',
-    'catalog/basket/clear'=>'basket/clear',
-    'catalog/basket/dell/([0-9]+)'=>'basket/dell/$1',
-    'catalog/basket/update'=>'basket/update',
-    'catalog/basket/add/([0-9]+)'=>'basket/add/$1',
-    'catalog/basket'=>'basket/index',
+    'order/result'=>'basket/orderResult',
+    'order'=>'basket/order',
+    'basket/clear'=>'basket/clear',
+    'basket/dell/([0-9]+)'=>'basket/dell/$1',
+    'basket/update'=>'basket/update',
+    'basket/add/([0-9]+)'=>'basket/add/$1',
+    'basket'=>'basket/index',
 
     'catalog/detail/([0-9]+)/([0-9]+)'=>'catalog/detail/$1/$2',
     'catalog/index/([0-9]+)/([0-9]+)'=>'catalog/index/$1/$2',
+    'catalog/'=>'catalog/index/0/1',
+    'catalog'=>'catalog/index/0/1',
 
+    'contact'=>'page/contact',
+    ''=>'page/main',
 
 );

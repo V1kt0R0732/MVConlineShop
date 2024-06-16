@@ -134,4 +134,34 @@ class Product
 
     }
 
+    public static function getPopular($order){
+
+        $db = Db::getConnection();
+
+        $query = "select name, price, idCat, photo_name, sum(countCat) as countCat from relationOrder inner join products on products.id = relationOrder.idCat left join photo on photo.id_tovar = products.id where (photo.status = 1 or photo.status is null) group by idCat, photo.photo_name order by countCat {$order} limit 4";
+        $result = $db->query($query);
+
+        $product = array();
+        $num = 0;
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
+            if(empty($row['photo_name'])){
+                $row['photo_name'] = 'noPhoto.jpg';
+            }
+            $product[$num]['num'] = $num + 1;
+            $product[$num]['name'] = $row['name'];
+            $product[$num]['price'] = $row['price'];
+            $product[$num]['id'] = $row['idCat'];
+            $product[$num]['count'] = $row['countCat'];
+            $product[$num]['photo_name'] = $row['photo_name'];
+
+            $num++;
+
+        }
+
+        return $product;
+
+    }
+
+
 }

@@ -270,5 +270,19 @@ class ProductController
         return true;
     }
 
+    public function actionShowPopular(){
+
+
+        $product = Product::getPopular('desc');
+
+        $product_2 = Product::getPopular('asc');
+
+        $product_3 = Product::getNoSold();
+
+        require_once(ROOT.'/views/product/popular.php');
+
+        return true;
+    }
+
 
 }

@@ -16,6 +16,7 @@ class Router
 
         $uri = $this->getUri();
 
+
         foreach($this->routes as $uriPattern=>$path){
             if(preg_match("~{$uriPattern}~",$uri)){
 

@@ -159,5 +159,80 @@ class Product
 
     }
 
+    public static function getPopular($order){
+
+        $db = Db::getConnection();
+
+        $query = "select name, price, idCat, photo_name, sum(countCat) as countCat from relationOrder inner join products on products.id = relationOrder.idCat left join photo on photo.id_tovar = products.id where (photo.status = 1 or photo.status is null) group by idCat, photo.photo_name order by countCat {$order} limit 3";
+        $result = $db->query($query);
+
+        $product = array();
+        $num = 0;
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
+            if(empty($row['photo_name'])){
+                $row['photo_name'] = 'noPhoto.jpg';
+            }
+            $product[$num]['num'] = $num + 1;
+            $product[$num]['name'] = $row['name'];
+            $product[$num]['price'] = $row['price'];
+            $product[$num]['id'] = $row['idCat'];
+            $product[$num]['count'] = $row['countCat'];
+            $product[$num]['photo_name'] = $row['photo_name'];
+
+            $num++;
+
+        }
+
+        return $product;
+
+    }
+
+    public static function getNoSold(){
+
+        $db = Db::getConnection();
+
+        $query_all = "select id from products";
+        $result_all = $db->query($query_all);
+        $all = [];
+        while($row_all = $result_all->fetch(PDO::FETCH_NUM)){
+            $all[] = $row_all[0];
+        }
+
+        $query_bought = "select products.id from products inner join relationOrder on products.id = relationOrder.idCat group by products.id";
+        $result_bought = $db->query($query_bought);
+        $bought = [];
+        while($row_bought = $result_bought->fetch(PDO::FETCH_NUM)){
+            $bought[] = $row_bought[0];
+        }
+
+        $result_id = [];
+        for($i = 0; $i < count($all); $i++){
+            $tmp = true;
+            for($j = 0; $j < count($bought); $j++){
+                if($all[$i] == $bought[$j]){
+                    $tmp = false;
+                }
+            }
+            if($tmp){
+                $result_id[] = $all[$i];
+            }
+        }
+
+        $result = [];
+        for($i = 0; $i < count($result_id); $i++){
+            $query = "select name, photo_name from products left join photo on photo.id_tovar = products.id where status = 1 and products.id = {$result_id[$i]}";
+            $result_query = $db->query($query);
+            $row = $result_query->fetch(PDO::FETCH_ASSOC);
+            $result[$i]['num'] = $i + 1;
+            $result[$i]['name'] = $row['name'];
+            $result[$i]['photo_name'] = $row['photo_name'];
+        }
+
+        return $result;
+
+    }
+
+
 
 }

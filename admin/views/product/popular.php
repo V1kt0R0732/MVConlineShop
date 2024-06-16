@@ -6,7 +6,7 @@ require_once(ROOT.'/views/head.php');
         <!-- START PAGE CONTENT-->
         <div class="ibox">
             <div class="ibox-head">
-                <div class="ibox-title">Clients with Orders</div>
+                <div class="ibox-title">The Most Popular Products</div>
                 <!--
                 <form class="form-inline" action="/admin/productAll" method="post">
                     <div class="form-group row">
@@ -18,47 +18,41 @@ require_once(ROOT.'/views/head.php');
                     <input type="submit" name="send" value="Фільтр" class="btn btn-success rounded">
                 </form>
                 -->
-                </div>
+            </div>
             <div class="ibox-body">
 
-                <?php if(!empty($clients)){ ?>
+                <?php if(!empty($product)){ ?>
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="thead-default">
                             <tr>
                                 <th>№</th>
-                                <th>Email</th>
-                                <th>Name</th>
-                                <th>Surname</th>
-                                <th>Phone</th>
-                                <th>Last Log</th>
-                                <th>Count Bought Tovar</th>
+                                <th>Photo</th>
+                                <th>Product Name</th>
+                                <th>Count Bought</th>
                             </tr>
                             </thead>
-                        <?php foreach($clients as $tmp): ?>
+                            <?php foreach($product as $tmp): ?>
                                 <tbody>
                                 <tr>
                                     <td><?=$tmp['num']?></td>
-                                    <td><?=$tmp['email']?></td>
-                                    <td><?=$tmp['first_name']?></td>
-                                    <td><?=$tmp['last_name']?></td>
-                                    <td><?=$tmp['phone']?></td>
-                                    <td><?=$tmp['last_log']?></td>
-                                    <td><?=$tmp['count_tovar']?></td>
+                                    <td><img width="80px" src="/admin/images/product/<?=$tmp['photo_name']?>"></td>
+                                    <td><?=$tmp['name']?></td>
+                                    <td><?=$tmp['count']?></td>
                                 </tr>
                                 </tbody>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </table>
 
                     </div>
                 <?php } else {?>
-                    <h3>Ніхто нічого не купив((</h3>
+                    <h3>Кожен клієнт замовив товар</h3>
                 <?php } ?>
             </div>
         </div>
         <div class="ibox">
             <div class="ibox-head">
-                <div class="ibox-title">Clients without Orders</div>
+                <div class="ibox-title">The worst Products</div>
                 <!--
                 <form class="form-inline" action="/admin/productAll" method="post">
                     <div class="form-group row">
@@ -72,28 +66,74 @@ require_once(ROOT.'/views/head.php');
                 -->
             </div>
             <div class="ibox-body">
-                <?php if(!empty($no_order)){ ?>
+
+                <?php if(!empty($product_2)){ ?>
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="thead-default">
                             <tr>
                                 <th>№</th>
-                                <th>Email</th>
-                                <th>Login</th>
-                                <th>Last Log</th>
+                                <th>Photo</th>
+                                <th>Product Name</th>
+                                <th>Count Bought</th>
                             </tr>
                             </thead>
-                            <?php foreach($no_order as $tmp): ?>
+                            <?php foreach($product_2 as $tmp): ?>
                                 <tbody>
                                 <tr>
                                     <td><?=$tmp['num']?></td>
-                                    <td><?=$tmp['email']?></td>
-                                    <td><?=$tmp['user_name']?></td>
-                                    <td><?=$tmp['last_log']?></td>
+                                    <td><img width="80px" src="/admin/images/product/<?=$tmp['photo_name']?>"></td>
+                                    <td><?=$tmp['name']?></td>
+                                    <td><?=$tmp['count']?></td>
                                 </tr>
                                 </tbody>
                             <?php endforeach; ?>
                         </table>
+
+                    </div>
+                <?php } else {?>
+                    <h3></h3>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="ibox">
+            <div class="ibox-head">
+                <div class="ibox-title">No Sold</div>
+                <!--
+                <form class="form-inline" action="/admin/productAll" method="post">
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <select class="form-control input-rounded" name="category">
+                            </select>
+                        </div>
+                    </div>
+                    <input type="submit" name="send" value="Фільтр" class="btn btn-success rounded">
+                </form>
+                -->
+            </div>
+            <div class="ibox-body">
+
+                <?php if(!empty($product_3)){ ?>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-default">
+                            <tr>
+                                <th>№</th>
+                                <th>Photo</th>
+                                <th>Product Name</th>
+                            </tr>
+                            </thead>
+                            <?php foreach($product_3 as $tmp): ?>
+                                <tbody>
+                                <tr>
+                                    <td><?=$tmp['num']?></td>
+                                    <td><img width="80px" src="/admin/images/product/<?=$tmp['photo_name']?>"></td>
+                                    <td><?=$tmp['name']?></td>
+                                </tr>
+                                </tbody>
+                            <?php endforeach; ?>
+                        </table>
+
                     </div>
                 <?php } else {?>
                     <h3>Кожен клієнт замовив товар</h3>

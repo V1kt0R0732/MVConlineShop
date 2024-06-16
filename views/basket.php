@@ -7,7 +7,7 @@ require_once(ROOT.'/views/header.php');
     <section class="cart__section section--padding">
         <div class="container-fluid">
             <div class="cart__section--inner">
-                <form action="/catalog/basket/update" method="post">
+                <form action="/basket/update" method="post">
                     <h2 class="cart__title mb-40">Shopping Cart</h2>
                     <div class="row">
                         <div class="col-lg-8">
@@ -27,7 +27,7 @@ require_once(ROOT.'/views/header.php');
                                     <tr class="cart__table--body__items">
                                         <td class="cart__table--body__list">
                                             <div class="cart__product d-flex align-items-center">
-                                                <a href="/catalog/basket/dell/<?=$_SESSION['basket'][$i]['id']?>">
+                                                <a href="/basket/dell/<?=$_SESSION['basket'][$i]['id']?>">
                                                 <button class="cart__remove--btn" aria-label="search button" type="button">
                                                     <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
                                                 </button>
@@ -64,7 +64,7 @@ require_once(ROOT.'/views/header.php');
                                 </table>
                                 <div class="continue__shopping d-flex justify-content-between">
                                     <a class="continue__shopping--link" href="/catalog/index/0/1">Continue shopping</a>
-                                    <a class="continue__shopping--clear" href="/catalog/basket/clear">Clear Cart</a>
+                                    <a class="continue__shopping--clear" href="/basket/clear">Clear Cart</a>
                                 </div>
                                 <?php } else{ ?>
                                     <h3>Корзина наразі пуста</h3>
@@ -107,7 +107,7 @@ require_once(ROOT.'/views/header.php');
                                     <p class="cart__summary--footer__desc">Shipping & taxes calculated at checkout</p>
                                     <ul class="d-flex justify-content-between">
                                         <li><button class="cart__summary--footer__btn btn cart" type="submit" name="send">Update Cart</button></li>
-                                        <li><a class="cart__summary--footer__btn btn checkout" href="/catalog/order">Check Out</a></li>
+                                        <li><a class="cart__summary--footer__btn btn checkout" href="/order">Check Out</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -184,7 +184,7 @@
                     <nav>
                         <ol class="breadcrumb checkout__breadcrumb d-flex">
                             <li class="breadcrumb__item breadcrumb__item--completed d-flex align-items-center">
-                                <a class="breadcrumb__link" href="/catalog/basket">Cart</a>
+                                <a class="breadcrumb__link" href="/basket/">Cart</a>
                                 <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path></svg>
                             </li>
 
@@ -203,7 +203,7 @@
                     </nav>
                 </header>
                 <main class="main__content_wrapper section--padding pt-0">
-                    <form action="/catalog/order/result" method="post">
+                    <form action="/order/result" method="post">
                         <div class="checkout__content--step section__contact--information">
                             <div class="section__header checkout__section--header d-flex align-items-center justify-content-between mb-25">
                                 <h2 class="section__header--title h3">Contact information</h2>
@@ -324,7 +324,7 @@
                         </div>
                         <div class="checkout__content--step__footer d-flex align-items-center">
                             <input class="continue__shipping--btn btn border-radius-5" type="submit" name="send" value="Order">
-                            <a class="previous__link--content" href="/catalog/basket">Return to cart</a>
+                            <a class="previous__link--content" href="/basket/">Return to cart</a>
                         </div>
                     </form>
                 </main>

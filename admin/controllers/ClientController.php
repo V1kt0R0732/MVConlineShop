@@ -8,6 +8,8 @@ class ClientController
 
         $clients = Client::getList();
 
+        $no_order = Client::getNullClients();
+
         require_once(ROOT.'/views/client/showAll.php');
 
         return true;

@@ -2,11 +2,16 @@
 require_once(ROOT.'/models/Cat.php');
 require_once(ROOT.'/models/Product.php');
 require_once(ROOT.'/models/Photo.php');
+require_once(ROOT.'/models/Page.php');
 class CatalogController
 {
 
     public function actionIndex($cat, $page){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
 
+        //print_r($uri);
         $param = array();
 
 
@@ -105,6 +110,9 @@ class CatalogController
     }
 
     public function actionDetail($id, $photo_id){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
 
         $product = Product::getById($id);
         $photo = Photo::getAllById($id);

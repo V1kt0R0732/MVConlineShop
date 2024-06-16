@@ -98,15 +98,25 @@ require_once(ROOT.'/views/header.php');
 
                             <ul class="widget__categories--menu">
                                 <?php foreach($cat as $tmp): ?>
+                                <?php if($_SESSION['param']['cat'] == $tmp['id']){ ?>
                                 <li class="widget__categories--sub__menu--list">
                                     <a class="widget__categories--sub__menu--link d-flex align-items-center" href="/catalog/index/<?=$tmp['id']?>/1">
                                         <!--
                                         <img class="widget__categories--sub__menu--img" src="/template/assets/img/product/categories12.png" alt="categories-img">
                                         -->
-                                        <span class="widget__categories--sub__menu--text"><?=$tmp['name']?></span>
+                                        <span class="widget__categories--sub__menu--text" style="border-radius:10px; background-color:#ead6d6; padding-right:10px"><?=$tmp['name']?></span>
                                     </a>
                                 </li>
-                                <?php endforeach; ?>
+                                <?php } else{ ?>
+                                    <li class="widget__categories--sub__menu--list">
+                                        <a class="widget__categories--sub__menu--link d-flex align-items-center" href="/catalog/index/<?=$tmp['id']?>/1">
+                                            <!--
+                                            <img class="widget__categories--sub__menu--img" src="/template/assets/img/product/categories12.png" alt="categories-img">
+                                            -->
+                                            <span class="widget__categories--sub__menu--text"><?=$tmp['name']?></span>
+                                        </a>
+                                    </li>
+                                <?php } endforeach; ?>
                                 <li class="widget__categories--sub__menu--list">
                                     <a class="widget__categories--sub__menu--link d-flex align-items-center" href="/catalog/index/0/1">
                                         <!--
@@ -549,7 +559,7 @@ require_once(ROOT.'/views/header.php');
                                                     </ul>
                                                 </div>
                                                 <div class="product__items--content product__items2--content text-center">
-                                                    <a class="add__to--cart__btn" href="/catalog/basket/add/<?=$tmp['id']?>">+ Add to cart</a>
+                                                    <a class="add__to--cart__btn" href="/basket/add/<?=$tmp['id']?>">+ Add to cart</a>
                                                     <h3 class="product__items--content__title h4"><a href="/product/detail/<?=$tmp['id']?>/0"><?=$tmp['name']?></a></h3>
                                                     <div class="product__items--price">
                                                         <span class="current__price">$<?=$tmp['price']?></span>

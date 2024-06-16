@@ -1,9 +1,13 @@
 <?php
 require_once(ROOT.'/models/Basket.php');
+require_once(ROOT.'/models/Page.php');
 class BasketController
 {
 
     public function actionIndex(){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
 
         $grand_total = 0;
         for($i = 0; $i < count($_SESSION['basket']); $i++){
@@ -15,6 +19,9 @@ class BasketController
         return true;
     }
     public function actionAdd($id){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
 
         $result = Basket::add($id);
         if($result){
@@ -28,6 +35,10 @@ class BasketController
     }
 
     public function actionUpdate(){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
+
         $grand_total = 0;
 
         if(isset($_POST['send'])){
@@ -40,25 +51,28 @@ class BasketController
                 $name = 'count'.$_SESSION['basket'][$i]['id'];
                 $_SESSION['basket'][$i]['count'] = $_POST[$name];
             }
-            header('refresh:2;url=/catalog/basket');
+            header('refresh:2;url=/basket');
             require_once(ROOT."/views/basket.php");
             echo "<script type='text/javascript'>showAlert('Успішно! Товар оновлено.', 'success');</script>";
 
         }
         else{
-            header('refresh:2;url=/catalog/basket');
+            header('refresh:2;url=/basket');
             require_once(ROOT.'/views/basket.php');
             echo "<script type='text/javascript'>showAlert('Помилка! Товар не оновлено', 'error');</script>";
 
         }
 
-        header("refresh:3;url=/catalog/basket");
+        header("refresh:3;url=/basket");
 
 
         return true;
     }
 
     public function actionDell($id){
+        $pages = Page::getPage();
+        $uri = Page::getUri();
+        $page_info = Page::getPageInfo($uri);
 
         if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])){
             for($i = 0; $i < count($_SESSION['basket']); $i++) {
@@ -80,7 +94,7 @@ class BasketController
             $_SESSION['basket'] = $tmp_arr;
             unset($tmp_arr);
             if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])){
-                header('location:/catalog/basket');
+                header('location:/basket');
             }
             else{
                 header('location:/catalog/index/0/1');
@@ -117,6 +131,9 @@ class BasketController
     }
 
     public function actionOrderResult(){
+        $pages = Page::getPage();
+        $page_info = Page::getPageInfo($uri);
+
 
         if(isset($_POST['send'], $_POST['email'], $_POST['phone'], $_POST['first_name'], $_POST['last_name'], $_POST['address']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['first_name']) && !empty($_POST['last_name'])){
 
@@ -161,7 +178,7 @@ class BasketController
         else{
             require_once(ROOT.'/views/order.php');
             echo "<script type='text/javascript'>showAlert('Помилка в передачі даних', 'warning');</script>";
-            header('refresh:3;url=/catalog/order');
+            header('refresh:3;url=/order');
 
         }
 
