@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 01 2024 г., 01:02
+-- Время создания: Июн 16 2024 г., 13:46
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -69,7 +69,9 @@ CREATE TABLE `client` (
 INSERT INTO `client` (`id`, `user_name`, `first_name`, `last_name`, `email`, `phone`, `last_log`, `password`, `adress`) VALUES
 (2, 'Viktor_2', 'Viktor', 'Krasnozhon', 'Example@gmail.com', '063 559 28 96', '2024-05-13 20:30:33', '8cb2237d0679ca88db6464eac60da96345513964', 'Random'),
 (3, 'Boby', 'Bob', 'Dori', 'Boby@gmail.com', '1230986754', '2024-05-29 17:29:39', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Boby Adress 1'),
-(4, 'Lary', 'Lary', 'Lobster', 'Lary@gmail.com', '1230986754', '2024-05-29 17:31:42', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Example Adress');
+(4, 'Lary', 'Lary', 'Lobster', 'Lary@gmail.com', '1230986754', '2024-05-29 17:31:42', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Example Adress'),
+(5, 'New User', NULL, NULL, 'NewUser@gmail.com', NULL, '2024-06-03 20:12:58', '8cb2237d0679ca88db6464eac60da96345513964', NULL),
+(6, 'SecondTestUser', 'Oleg', 'Roby', 'Second@gmail.com', '55662325', '2024-06-03 20:13:27', '8cb2237d0679ca88db6464eac60da96345513964', 'Example Adress');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,7 @@ INSERT INTO `products` (`id`, `name`, `id_cat`, `count`, `price`, `description`)
 (27, 'Насіння соняшника', 3, 22, 27.00, 'Насіння соняшника 80 г Сан Санич Преміум смажене солоне м/уп'),
 (28, 'Pringles', 3, 17, 140.00, 'Чіпси 165г PRINGLES картопляні зі смаком сметани та цибулі'),
 (29, 'Raffaello ', 5, 55, 191.00, 'Цукерки Raffaello 210 г'),
-(30, 'Цукерки АВК', 1, 30, 330.00, 'Цукepки АВК Королівський шарм солодкий мікс'),
+(30, 'Цукерки АВК', 5, 30, 330.00, 'Цукepки АВК Королівський шарм солодкий мікс'),
 (31, 'Сливки-Ленивки', 5, 25, 177.00, 'Цукерки Рошен Сливки-Ленивки глазуровані молочно-шоколадною глазур\'ю'),
 (32, 'Mars Twix ', 5, 55, 407.00, 'Цукерки Mars Twix minis вагові'),
 (33, 'Перець чорний', 8, 40, 10.00, 'Перець чорний 20 г Мрія мелений'),
@@ -196,7 +198,33 @@ INSERT INTO `relationOrder` (`id`, `idUser`, `idCat`, `countCat`, `status`, `dat
 (37, 16, 19, 1, 1, '2024-06-01 00:58:14', '', 'address', 'visitor'),
 (38, 17, 20, 1, 1, '2024-06-01 00:59:07', '', 'Boby Adress 1', 'visitor'),
 (39, 17, 24, 1, 1, '2024-06-01 00:59:07', '', 'Boby Adress 1', 'visitor'),
-(40, 17, 25, 1, 1, '2024-06-01 00:59:07', '', 'Boby Adress 1', 'visitor');
+(40, 17, 25, 1, 1, '2024-06-01 00:59:07', '', 'Boby Adress 1', 'visitor'),
+(41, 6, 19, 3, 1, '2024-06-03 21:40:09', '', 'Example Adress', 'client'),
+(42, 2, 28, 1, 1, '2024-06-12 11:58:13', '', 'Random', 'client');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `settingPage`
+--
+
+CREATE TABLE `settingPage` (
+  `id` int NOT NULL,
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fullContent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `page` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `prior` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `settingPage`
+--
+
+INSERT INTO `settingPage` (`id`, `title`, `fullContent`, `name`, `page`, `prior`) VALUES
+(1, 'Головна Сторінка', 'Тут буде інформація про фірму (опис і т.д.)', 'Головна', 'index', 1),
+(3, 'Каталог', 'Каталог', 'Каталог', 'catalog', 3),
+(4, 'About Us', 'Content About Us', 'Про нас', 'contact', 2);
 
 -- --------------------------------------------------------
 
@@ -285,6 +313,12 @@ ALTER TABLE `relationOrder`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `settingPage`
+--
+ALTER TABLE `settingPage`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
@@ -310,7 +344,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблицы `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `photo`
@@ -328,7 +362,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблицы `relationOrder`
 --
 ALTER TABLE `relationOrder`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT для таблицы `settingPage`
+--
+ALTER TABLE `settingPage`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
