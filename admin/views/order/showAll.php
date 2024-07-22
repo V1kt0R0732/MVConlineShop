@@ -62,9 +62,10 @@ require_once(ROOT.'/views/head.php');
                             <tr>
                                 <th>№</th>
                                 <th>Photo</th>
-                                <th colspan="2">Product Name</th>
+                                <th colspan="1">Product Name</th>
                                 <th>Price</th>
                                 <th>Count</th>
+                                <th>Discount</th>
                                 <th>Total Price</th>
                             </tr>
                             </thead>
@@ -73,9 +74,10 @@ require_once(ROOT.'/views/head.php');
                                         <tr>
                                             <td><?=$tmp_2['num']?></td>
                                             <td><img src="/admin/images/product/<?=$tmp_2['photo']?>" width="70px"></td>
-                                            <td colspan="2"><?=$tmp_2['name']?></td>
+                                            <td colspan="1"><?=$tmp_2['name']?></td>
                                             <td><?=$tmp_2['price']?></td>
                                             <td><?=$tmp_2['count']?></td>
+                                            <td><?php if(isset($tmp_2['coupon_value']) && !empty($tmp_2['coupon_value'])) echo $tmp_2['coupon_value']."%"; else echo 'None'?></td>
                                             <td><?=$tmp_2['total_price']?></td>
                                         </tr>
                                 <?php endforeach; ?>

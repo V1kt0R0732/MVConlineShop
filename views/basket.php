@@ -42,7 +42,7 @@ require_once(ROOT.'/views/header.php');
                                             </div>
                                         </td>
                                         <td class="cart__table--body__list">
-                                            <span class="cart__price">$<?=$_SESSION['basket'][$i]['price']?></span>
+                                            <span class="cart__price"><?=$_SESSION['currency']['sym']?><?php echo $_SESSION['basket'][$i]['price']*$_SESSION['currency']['cef']?></span>
                                         </td>
                                         <td class="cart__table--body__list">
 
@@ -56,7 +56,7 @@ require_once(ROOT.'/views/header.php');
 
                                         </td>
                                         <td class="cart__table--body__list">
-                                            <span class="cart__price end">$<?php echo $_SESSION['basket'][$i]['price']*$_SESSION['basket'][$i]['count'];?></span>
+                                            <span class="cart__price end"><?=$_SESSION['currency']['sym']?><?php echo $_SESSION['basket'][$i]['price']*$_SESSION['basket'][$i]['count']*$_SESSION['currency']['cef'];?></span>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -75,14 +75,12 @@ require_once(ROOT.'/views/header.php');
                         <div class="col-lg-4">
                             <div class="cart__summary border-radius-10">
                                 <div class="coupon__code mb-30">
-                                    <h3 class="coupon__code--title">Coupon</h3>
-                                    <p class="coupon__code--desc">Enter your coupon code if you have one.</p>
-                                    <div class="coupon__code--field d-flex">
-                                        <label>
-                                            <input class="coupon__code--field__input border-radius-5" placeholder="Coupon code" type="text">
-                                        </label>
-                                        <a class="coupon__code--field__btn btn" href="">Apply Coupon</a>
-                                    </div>
+                                    <form method="post" action="/basket/coupon/activate">
+                                        <h3 class="coupon__code--title">Coupon</h3>
+                                        <p class="coupon__code--desc">Enter your coupon code if you have one.</p>
+                                        <p class="coupon__code--desc">On "Check Out" page.</p>
+
+                                    </form>
                                 </div>
                                 <div class="cart__note mb-20">
                                     <h3 class="cart__note--title">Note</h3>
@@ -98,7 +96,7 @@ require_once(ROOT.'/views/header.php');
 <!--                                        </tr>-->
                                         <tr class="cart__summary--total__list">
                                             <td class="cart__summary--total__title text-left">GRAND TOTAL</td>
-                                            <td class="cart__summary--amount text-right">$<?=$grand_total?></td>
+                                            <td class="cart__summary--amount text-right"><?=$_SESSION['currency']['sym']?><?=$grand_total?></td>
                                         </tr>
                                         </tbody>
                                     </table>

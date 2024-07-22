@@ -61,12 +61,12 @@
                             </button>
                         </h3>
                         <ul class="footer__widget--menu footer__widget--inner">
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="about.html">About Us</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="contact.html">Contact Us</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="wishlist.html">Wishlist</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="portfolio.html">Portfolio</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="privacy-policy.html">Privacy Policy</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="faq.html">Frequently</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/contact">About Us</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/contact">Contact Us</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="">Wishlist</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="">Portfolio</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="">Privacy Policy</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="">Frequently</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,12 +80,10 @@
                             </button>
                         </h3>
                         <ul class="footer__widget--menu footer__widget--inner">
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">All Products</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">Grocery & Frozen</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">Fresh Fruits</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">Package Foods</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">Organic Foods</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="shop.html">Health & Wellness</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/catalog">All Products</a></li>
+                            <?php for($i = 0; $i < 5; $i++){ ?>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="/catalog/index/<?=$topCat[$i]['id']?>/1"><?=$topCat[$i]['name']?></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -99,12 +97,12 @@
                             </button>
                         </h3>
                         <ul class="footer__widget--menu footer__widget--inner">
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="my-account.html">My Account</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="cart.html">Shopping Cart</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="checkout.html">Checkout</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Login</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="login.html">Register</a></li>
-                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="compare.html">Compare</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/profile"; else echo "/user/login"; ?>">My Account</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="<?php if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])) echo '/basket'; else echo ''; ?>">Shopping Cart</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="<?php if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])) echo '/order'; else echo ''; ?>">Checkout</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/profile"; else echo "/user/login"; ?>">Login</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/profile"; else echo "/user/login"; ?>">Register</a></li>
+                            <li class="footer__widget--menu__list"><a class="footer__widget--menu__text" href="">Compare</a></li>
                         </ul>
                     </div>
                 </div>
@@ -121,12 +119,7 @@
                             <p class="footer__widget--desc m-0">Get updates by subscribe
                                 our weekly newsletter</p>
                             <div class="newsletter__subscribe">
-                                <form class="newsletter__subscribe--form" action="#">
-                                    <label>
-                                        <input class="newsletter__subscribe--input" placeholder="Your mail here ...." type="text">
-                                    </label>
-                                    <button class="newsletter__subscribe--button" type="submit">subscribe</button>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -136,7 +129,7 @@
         <div class="footer__bottom">
             <div class="row justify-content-between align-items-center">
                 <div class="col-12 col-md-auto">
-                    <p class="copyright__content">Copyright © 2022 <a class="copyright__content--link text__primary" href="index.html">Grocee</a> . All Rights Reserved.Design By Grocee</p>
+                    <p class="copyright__content">Copyright © 2022 <a class="copyright__content--link text__primary" href="">Grocee</a> . All Rights Reserved.Design By Grocee</p>
                 </div>
                 <div class="col-12 col-md-auto">
                     <div class="footer__payment">
@@ -450,6 +443,7 @@
 <script src="/template/assets/js/plugins/swiper-bundle.min.js"></script>
 <script src="/template/assets/js/plugins/glightbox.min.js"></script>
 
+<script src="/template/assets/js/jQuery.js"></script>
 <!-- Customscript js -->
 <script src="/template/assets/js/script.js"></script>
 

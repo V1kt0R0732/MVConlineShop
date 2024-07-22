@@ -12357,6 +12357,62 @@ details > summary::-webkit-details-marker {
 /* 
     23. My account page css 
 */
+
+/*
+    23.1 Coupon
+*/
+
+.coupon-wrapper{
+  padding-top: 40px;
+}
+
+.coupon-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.coupon {
+  list-style-type: none;
+  padding: 0;
+}
+
+.coupon li {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+#timer {
+  font-size: 1.2em;
+  color: #333;
+}
+
+
+
+.result_order_title_green{
+  background-color: #b3e1b3;
+}
+.order_result_green{
+  background-color: #c0f0c0;
+}
+.result_order_title_aqua{
+  background-color: #31dcdc;
+}
+.order_result_aqua{
+  background-color: #30f1f1;
+}
+
 .my__account--section__inner {
   background: var(--white-color);
   -webkit-box-shadow: 0 2px 22px rgba(0, 0, 0, 0.16);

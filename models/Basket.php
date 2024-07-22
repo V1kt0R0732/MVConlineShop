@@ -21,6 +21,8 @@ class Basket
             }
         }
 
+
+
         if(!$exist){
 
             $db = Db::getConnection();
@@ -101,8 +103,25 @@ class Basket
                 $info['address'] = null;
             }
         }
+        if(isset($info['coupon']) && !empty($info['coupon'])){
 
-        $query = "update client set first_name = :first_name, last_name = :last_name, phone = :phone, adress = :adress where id = {$info['id']}";
+            $query_coupon = "select a_coupons from client where id = {$info['id']}";
+            $result_coupon = $db->query($query_coupon);
+
+            if(isset($result_coupon->fetch(PDO::FETCH_ASSOC)[0]) && !empty($result_coupon->fetch(PDO::FETCH_ASSOC)[0])){
+                $coupon = $result_coupon->fetch(PDO::FETCH_ASSOC)[0].$info['coupon'].',';
+            }
+            else{
+                $coupon = $info['coupon'].',';
+            }
+
+
+        }
+        else{
+            $coupon = null;
+        }
+
+        $query = "update client set first_name = :first_name, last_name = :last_name, phone = :phone, adress = :adress, a_coupons = '{$coupon}' where id = {$info['id']}";
         //$query = "insert into client (first_name, last_name, phone, adress) values (:first_name, :last_name, :phone, :adress)";
 
         $stmt = $db->prepare($query);
@@ -134,7 +153,14 @@ class Basket
 
         for($i = 0; $i < count($catalog); $i++) {
 
-            $query = "insert into relationOrder (idUser, idCat, countCat, status, dataCat, description, adress, type) values (:user_id, :idCat, :countCat, 1, now(), :desc, :adress, :type)";
+            if(isset($catalog[$i]['coupon']['name'])){
+                $coupon = $catalog[$i]['coupon']['name'];
+            }
+            else{
+                $coupon = null;
+            }
+
+            $query = "insert into relationOrder (idUser, idCat, countCat, status, dataCat, description, adress, type, coupon) values (:user_id, :idCat, :countCat, 1, now(), :desc, :adress, :type, '{$coupon}')";
 
             $stmt = $db->prepare($query);
 

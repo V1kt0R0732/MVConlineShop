@@ -35,6 +35,9 @@ return array(
     'admin/user/all'=>'user/showAll',
     'admin/user/profile'=>'user/index',
 
+    'admin/valuta/change/resultForm'=>'currency/resultValutaUpdate',
+    'admin/valuta/change'=>'currency/valutaUpdate',
+
     'admin/product/popular'=>'product/showPopular',
 
     'admin/product/dellPhoto/resultForm/([0-9]+)'=>'product/resultPhotoDell/$1',

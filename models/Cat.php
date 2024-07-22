@@ -54,4 +54,43 @@ class Cat
 
     }
 
+    public static function get_top_5(){
+
+        $db = Db::getConnection();
+
+        $query = "select categories.id as id, categories.name as category from categories inner join products on categories.id = products.id_cat where id_cat = categories.id order by categories.id asc;";
+        $result = $db->query($query);
+
+        $num = -1;
+        $last_name = '';
+        $list = [];
+
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
+            if($last_name != $row['category']){
+                $num++;
+                $count = 0;
+                $list[$num]['name'] = $row['category'];
+                $list[$num]['id'] = $row['id'];
+            }
+            $count++;
+            $list[$num]['count'] = $count;
+            $last_name = $row['category'];
+
+        }
+
+        for($i = 0; $i < count($list); $i++){
+            for($j = 0; $j < count($list)-1; $j++){
+                if($list[$j]['count'] < $list[$j+1]['count']){
+                    $tmp = $list[$j];
+                    $list[$j] = $list[$j+1];
+                    $list[$j+1] = $tmp;
+                }
+
+            }
+        }
+
+        return $list;
+    }
+
 }

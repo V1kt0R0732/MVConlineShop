@@ -114,7 +114,7 @@
                 <div class="header__account header__sticky--none">
                     <ul class="d-flex">
                         <li class="header__account--items d-none d-lg-block">
-                            <a class="header__account--btn" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/user/profile"; else echo "/user/login"; ?>">
+                            <a class="header__account--btn" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/profile"; else echo "/user/login"; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg"  width="20.51" height="19.443" viewBox="0 0 512 512"><path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/></svg>
                                 <span class="visually-hidden">My account</span>
                             </a>
@@ -151,7 +151,7 @@
 
 
                         <li class="header__account--items d-none d-lg-block">
-                            <a class="header__account--btn" href="my-account.html">
+                            <a class="header__account--btn" href="<?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) echo "/profile"; else echo "/user/login"; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg"  width="20.51" height="19.443" viewBox="0 0 512 512"><path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/></svg>
                                 <span class="visually-hidden">My account</span>
                             </a>
@@ -167,7 +167,16 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <span class="items__count">3</span>
+                                <span class="items__count">
+                                    <?php $count_tovar = 0;
+                                    if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])){
+                                        for($i = 0; $i < count($_SESSION['basket']); $i++){
+                                            $count_tovar += $_SESSION['basket'][$i]['count'];
+                                        }
+                                    }
+                                    echo $count_tovar;
+                                    ?>
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -448,22 +457,30 @@
                             <ul class="d-flex">
                                 <?php foreach($pages as $tmp): ?>
                                 <?php if(isset($uri) && !empty($uri) && $uri == $tmp['page']){ if($tmp['page'] == 'index'){ ?>
-                                <li class="header__menu--items" style="border-radius:10px; background-color:#f1ad80; padding: 0px 10px 0px 10px">
-                                    <a class="header__menu--link text-white" href="/"><?=$tmp['name']?> </a>
-                                </li>
-                                <?php } else { ?>
+                                    <li class="header__menu--items" style="border-radius:10px; background-color:#f1ad80; padding: 0px 10px 0px 10px">
+                                        <a class="header__menu--link text-white" href="/"><?=$tmp['name']?> </a>
+                                    </li>
+                                <?php } else { if ($tmp['page'] != 'basket'){ ?>
                                     <li class="header__menu--items" style="border-radius:10px; background-color:#f1ad80; padding:0px 10px 0px 10px">
                                         <a class="header__menu--link text-white" href="/<?=$tmp['page']?>"><?=$tmp['name']?> </a>
                                     </li>
-                                <?php } } else{ if($tmp['page'] == 'index'){ ?>
-                                <li class="header__menu--items">
-                                    <a class="header__menu--link text-white" href="/"><?=$tmp['name']?> </a>
-                                </li>
-                                <?php } else { ?>
-                                <li class="header__menu--items">
-                                    <a class="header__menu--link text-white" href="/<?=$tmp['page']?>"><?=$tmp['name']?> </a>
-                                </li>
-                                <?php } } endforeach; ?>
+                                    <?php } elseif($tmp['page'] == 'basket' && isset($_SESSION['basket']) && !empty($_SESSION['basket'])){ ?>
+                                    <li class="header__menu--items" style="border-radius:10px; background-color:#f1ad80; padding:0px 10px 0px 10px">
+                                        <a class="header__menu--link text-white" href="/<?=$tmp['page']?>"><?=$tmp['name']?> </a>
+                                    </li>
+                                <?php } } } else{ if($tmp['page'] == 'index'){ ?>
+                                    <li class="header__menu--items">
+                                        <a class="header__menu--link text-white" href="/"><?=$tmp['name']?> </a>
+                                    </li>
+                                <?php } else { if ($tmp['page'] != 'basket'){ ?>
+                                    <li class="header__menu--items">
+                                        <a class="header__menu--link text-white" href="/<?=$tmp['page']?>"><?=$tmp['name']?> </a>
+                                    </li>
+                                <?php } elseif($tmp['page'] == 'basket' && isset($_SESSION['basket']) && !empty($_SESSION['basket'])){ ?>
+                                    <li class="header__menu--items">
+                                        <a class="header__menu--link text-white" href="/<?=$tmp['page']?>"><?=$tmp['name']?> </a>
+                                    </li>
+                                <?php } } } endforeach; ?>
                             </ul>
                         </nav>
                     </div>
@@ -693,13 +710,13 @@
                     <h4 class="minicart__subtitle"><a href="product-details.html"></a></h4>
                     <span class="color__variant"><b><?=$_SESSION['basket'][$i]['name']?></b></span>
                     <div class="minicart__price">
-                        <span class="current__price">$<?=$_SESSION['basket'][$i]['price']?></span>
+                        <span class="current__price"><?=$_SESSION['currency']['sym']?><?php echo $_SESSION['basket'][$i]['price']*$_SESSION['currency']['cef']?></span>
                         <!--<span class="old__price">$140.00</span>-->
                     </div>
                     <div class="minicart__text--footer d-flex align-items-center">
                         <div class="quantity__box minicart__quantity">
                             <label>
-                                <span><?=$_SESSION['basket'][$i]['count']?></span>
+                                <span>Count: <?=$_SESSION['basket'][$i]['count']?></span>
                             </label>
                         </div>
                     </div>

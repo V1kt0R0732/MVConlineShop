@@ -192,6 +192,14 @@
 <!--                        <span class="nav-label">Dashboard</span>-->
 <!--                    </a>-->
 <!--                </li>-->
+                <li class="heading">Currency</li>
+                <li>
+                    <a href="/admin/valuta/change">
+                        <i class="sidebar-item-icon fa fa-euro"></i>
+                        <span class="nav-label">Change</span>
+                    </a>
+                </li>
+
                 <li class="heading">Catalog</li>
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-shopping-basket"></i>

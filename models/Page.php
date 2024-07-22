@@ -7,7 +7,7 @@ class Page
 
         $db = Db::getConnection();
 
-        $query = "select title, fullContent, page, name from settingPage order by prior asc";
+        $query = "select title, page, name from settingPage order by prior asc limit 4";
         $result = $db->query($query);
 
         $pages = [];
@@ -15,7 +15,6 @@ class Page
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
 
             $pages[$num]['title'] = $row['title'];
-            $pages[$num]['fullContent'] = $row['fullContent'];
             $pages[$num]['page'] = $row['page'];
             $pages[$num]['name'] = $row['name'];
 

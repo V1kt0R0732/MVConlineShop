@@ -189,16 +189,16 @@
                             </li>
 
                             <li class="breadcrumb__item breadcrumb__item--current d-flex align-items-center">
-                                <span class="breadcrumb__text current">Information</span>
-                                <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path></svg>
+                                <span class="breadcrumb__text current">Order</span>
+<!--                                <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path></svg>-->
                             </li>
-                            <li class="breadcrumb__item breadcrumb__item--blank d-flex align-items-center">
-                                <span class="breadcrumb__text">Shipping</span>
-                                <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path></svg>
-                            </li>
-                            <li class="breadcrumb__item breadcrumb__item--blank">
-                                <span class="breadcrumb__text">Payment</span>
-                            </li>
+<!--                            <li class="breadcrumb__item breadcrumb__item--blank d-flex align-items-center">-->
+<!--                                <span class="breadcrumb__text">Shipping</span>-->
+<!--                                <svg class="readcrumb__chevron-icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"></path></svg>-->
+<!--                            </li>-->
+<!--                            <li class="breadcrumb__item breadcrumb__item--blank">-->
+<!--                                <span class="breadcrumb__text">Payment</span>-->
+<!--                            </li>-->
                         </ol>
                     </nav>
                 </header>
@@ -351,7 +351,12 @@
                                 </div>
                             </td>
                             <td class="cart__table--body__list">
-                                <span class="cart__price">$<?php echo $_SESSION['basket'][$i]['count']*$_SESSION['basket'][$i]['price']?></span>
+                                <div class="product__items--price">
+                                    <?php if(isset($_SESSION['basket'][$i]['old_price'])){ ?>
+                                    <span class="old__price"><?=$_SESSION['currency']['sym']?><?php echo $_SESSION['basket'][$i]['old_price']*$_SESSION['currency']['cef']?></span>
+                                    <?php } ?>
+                                    <span class="cart__price"><?=$_SESSION['currency']['sym']?><?php echo $_SESSION['basket'][$i]['count']*$_SESSION['basket'][$i]['price']*$_SESSION['currency']['cef']?></span>
+                                </div>
                             </td>
                         </tr>
                         <?php } } ?>
@@ -395,29 +400,37 @@
                     </table>
                 </div>
                 <div class="checkout__discount--code">
-                    <form class="d-flex" action="">
+                    <?php if(!isset($_SESSION['basket'][0]['coupon']['name'])){ ?>
+                    <form class="d-flex" action="/basket/coupon/activate" method="post">
                         <label>
-                            <input class="checkout__discount--code__input--field border-radius-5" placeholder="Gift card or discount code"  type="text">
+                            <input class="checkout__discount--code__input--field border-radius-5" placeholder="Gift card or discount code" type="text" name="coupon">
                         </label>
-                        <button class="checkout__discount--code__btn btn border-radius-5" type="submit">Apply</button>
+                        <input name="send" value="Apply" class="checkout__discount--code__btn btn border-radius-5" type="submit">
                     </form>
+                    <?php } else{ ?>
+                        <label>
+                            <p>Coupon <b><?=$_SESSION['basket'][0]['coupon']['name']?></b> Activated</p>
+                        </label>
+                    <?php } ?>
                 </div>
                 <div class="checkout__total">
                     <table class="checkout__total--table">
                         <tbody class="checkout__total--body">
                         <tr class="checkout__total--items">
                             <td class="checkout__total--title text-left">Subtotal </td>
-                            <td class="checkout__total--amount text-right">$<?php if(isset($grand_total)) echo $grand_total; ?></td>
+                            <td class="checkout__total--amount text-right">$<?php if(isset($sub_total) && !empty($sub_total)) echo $sub_total; elseif(isset($grand_total) && !empty($grand_total)) echo $grand_total; else echo '...calculating'; ?></td>
                         </tr>
+                        <?php if(isset($_SESSION['basket'][0]['coupon']['value'], $sub_total, $grand_total)){ ?>
                         <tr class="checkout__total--items">
-                            <td class="checkout__total--title text-left">Shipping</td>
-                            <td class="checkout__total--calculated__text text-right">Calculated at next step</td>
+                            <td class="checkout__total--title text-left">Discount</td>
+                            <td class="checkout__total--calculated__text text-right"><?=$_SESSION['basket'][0]['coupon']['value']?>% - $<?php echo $sub_total - $grand_total ?></td>
                         </tr>
+                        <?php } ?>
                         </tbody>
                         <tfoot class="checkout__total--footer">
                         <tr class="checkout__total--footer__items">
                             <td class="checkout__total--footer__title checkout__total--footer__list text-left">Total </td>
-                            <td class="checkout__total--footer__amount checkout__total--footer__list text-right">$<?php if(isset($grand_total)) echo $grand_total; ?></td>
+                            <td class="checkout__total--footer__amount checkout__total--footer__list text-right">$<?php if(isset($grand_total)) echo $grand_total; else echo "..." ?></td>
                         </tr>
                         </tfoot>
                     </table>

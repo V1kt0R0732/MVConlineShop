@@ -10,6 +10,10 @@ require_once(ROOT.'/views/header.php');
     <!-- Start contact section -->
     <section class="contact__section section--padding">
         <div class="container">
+            <?php
+                echo $page_info['fullContent'];
+            ?>
+            <!--
             <div class="section__heading text-center mb-40">
                 <span class="section__heading--subtitle">Cntact With Me</span>
                 <h2 class="section__heading--maintitle">Get In Touch</h2>
@@ -134,43 +138,18 @@ require_once(ROOT.'/views/header.php');
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- End contact section -->
 
     <!-- Start contact map area -->
     <div class="contact__map--area section--padding pt-0">
-        <iframe class="contact__map--iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7887.465355142307!2d-0.13384360843222626!3d51.4876034467734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760532743b90e1%3A0x790260718555a20c!2sU.S.%20Embassy%2C%20London!5e0!3m2!1sen!2sbd!4v1632035375945!5m2!1sen!2sbd" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
+        <iframe class="contact__map--iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10164.220373946026!2d30.41385306322407!3d50.4400744531018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cc19f547785d%3A0xe7e588240239d964!2z0J3QsNGG0LjQvtC90LDQu9GM0L3Ri9C5INCw0LLQuNCw0YbQuNC-0L3QvdGL0Lkg0YPQvdC40LLQtdGA0YHQuNGC0LXRgg!5e0!3m2!1sru!2sua!4v1718560064353!5m2!1sru!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    </div>
     <!-- End contact map area -->
 
     <!-- Start brand logo section -->
-    <div class="brand__logo--section section--padding pt-0">
-        <div class="container">
-            <div class="row row-cols-1">
-                <div class="col">
-                    <div class="brand__logo--section__inner d-flex justify-content-between align-items-center">
-                        <div class="brand__logo--items">
-                            <img class="brand__logo--items__thumbnail--img display-block" src="assets/img/logo/brand-logo1.png" alt="brand img">
-                        </div>
-                        <div class="brand__logo--items">
-                            <img class="brand__logo--items__thumbnail--img display-block" src="assets/img/logo/brand-logo2.png" alt="brand img">
-                        </div>
-                        <div class="brand__logo--items">
-                            <img class="brand__logo--items__thumbnail--img display-block" src="assets/img/logo/brand-logo3.png" alt="brand img">
-                        </div>
-                        <div class="brand__logo--items">
-                            <img class="brand__logo--items__thumbnail--img display-block" src="assets/img/logo/brand-logo4.png" alt="brand img">
-                        </div>
-                        <div class="brand__logo--items">
-                            <img class="brand__logo--items__thumbnail--img display-block" src="assets/img/logo/brand-logo5.png" alt="brand img">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- End brand logo section -->
 
     <!-- Start shipping section -->

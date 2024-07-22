@@ -19,13 +19,13 @@ require_once(ROOT.'/views/header.php');
                     <div class="col mb-30">
                         <div class="product__categories--grid__items product__bg d-flex align-items-center">
                             <div class="product__categories--grid__thumbnail">
-                                <a class="product__items--link" href="shop.html"><img width="65px"  class="product__items--img" src="/admin/images/product/<?=$cat[$i]['photo']?>" alt="categories-img"></a>
+                                <a class="product__items--link" href="/catalog/index/<?=$cat[$i]['id']?>/1"><img width="65px"  class="product__items--img" src="/admin/images/product/<?=$cat[$i]['photo']?>" alt="categories-img"></a>
                             </div>
                             <div class="product__categories--grid__content">
-                                <h3 class="product__categories--grid__content--maintitle"><a href="shop.html"><?=$cat[$i]['name']?></a></h3>
+                                <h3 class="product__categories--grid__content--maintitle"><a href="/catalog/index/<?=$cat[$i]['id']?>/1"><?=$cat[$i]['name']?></a></h3>
                                 <span class="product__categories--grid__content--subtitle"><?=$cat[$i]['count']?> items</span>
                                 <div class="product__categories--grid__icon text-right">
-                                    <a class="product__categories--grid__icon--link" href="shop.html">
+                                    <a class="product__categories--grid__icon--link" href="/catalog/index/<?=$cat[$i]['id']?>/1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15.995" height="10.979" viewBox="0 0 15.995 10.979">
                                             <path  d="M212.706,299.839a.425.425,0,0,0,0-.6l-3.458-3.458a.425.425,0,0,1,0-.6l1.008-1.008a.425.425,0,0,1,.6,0l5.065,5.065a.425.425,0,0,1,0,.6l-5.065,5.066a.425.425,0,0,1-.6,0l-1.008-1.008a.425.425,0,0,1,0-.6Zm-6.305-.3a2.215,2.215,0,1,0,2.216-2.216A2.215,2.215,0,0,0,206.4,299.541Zm-3.634,0a1.6,1.6,0,1,0,1.6-1.605A1.6,1.6,0,0,0,202.767,299.541Zm-2.717,0a1.154,1.154,0,1,0,1.154-1.154A1.155,1.155,0,0,0,200.05,299.541Z" transform="translate(-200.05 -294.05)" fill="currentColor"/>
                                         </svg>
@@ -68,7 +68,7 @@ require_once(ROOT.'/views/header.php');
                                         <a class="add__to--cart__btn" href="/basket/add/<?=$tmp['id']?>">+ Add to cart</a>
                                         <h3 class="product__items--content__title h4"><a href="product-details.html">Vegetable-healthy</a></h3>
                                         <div class="product__items--price">
-                                            <span class="current__price">$<?=$tmp['price']?></span>
+                                            <span class="current__price"><?=$_SESSION['currency']['sym']?><?=$tmp['price']?></span>
                                         </div>
 
                                     </div>

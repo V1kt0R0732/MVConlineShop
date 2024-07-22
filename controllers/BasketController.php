@@ -1,6 +1,10 @@
 <?php
 require_once(ROOT.'/models/Basket.php');
 require_once(ROOT.'/models/Page.php');
+require_once(ROOT.'/models/Cat.php');
+require_once(ROOT.'/models/Coupon.php');
+require_once(ROOT.'/models/User.php');
+require_once(ROOT.'/models/Currency.php');
 class BasketController
 {
 
@@ -8,10 +12,20 @@ class BasketController
         $pages = Page::getPage();
         $uri = Page::getUri();
         $page_info = Page::getPageInfo($uri);
+        $topCat = Cat::get_top_5();
+
+        if(isset($_SESSION['currency']['name']) && $_SESSION['currency']['name'] == 'UAH'){
+            $cef = Currency::getCef();
+        }
+        else{
+            $cef = 1;
+        }
+
+        //print_r($_SESSION['basket']);
 
         $grand_total = 0;
         for($i = 0; $i < count($_SESSION['basket']); $i++){
-            $grand_total += $_SESSION['basket'][$i]['price'] * $_SESSION['basket'][$i]['count'];
+            $grand_total += $_SESSION['basket'][$i]['price'] * $_SESSION['basket'][$i]['count'] * $cef;
         }
 
         require_once(ROOT."/views/basket.php");
@@ -22,6 +36,7 @@ class BasketController
         $pages = Page::getPage();
         $uri = Page::getUri();
         $page_info = Page::getPageInfo($uri);
+        $topCat = Cat::get_top_5();
 
         $result = Basket::add($id);
         if($result){
@@ -38,6 +53,7 @@ class BasketController
         $pages = Page::getPage();
         $uri = Page::getUri();
         $page_info = Page::getPageInfo($uri);
+        $topCat = Cat::get_top_5();
 
         $grand_total = 0;
 
@@ -73,6 +89,7 @@ class BasketController
         $pages = Page::getPage();
         $uri = Page::getUri();
         $page_info = Page::getPageInfo($uri);
+        $topCat = Cat::get_top_5();
 
         if(isset($_SESSION['basket']) && !empty($_SESSION['basket'])){
             for($i = 0; $i < count($_SESSION['basket']); $i++) {
@@ -120,10 +137,15 @@ class BasketController
             $client = Basket::clientInfo($_SESSION['user']['id']);
         }
 
+        $sub_total = 0;
         $grand_total = 0;
         for($i = 0; $i < count($_SESSION['basket']); $i++){
-            $grand_total += $_SESSION['basket'][$i]['price'] * $_SESSION['basket'][$i]['count'];
+            $grand_total += $_SESSION['basket'][$i]['price'] * $_SESSION['basket'][$i]['count']* $_SESSION['currency']['cef'];
+            if(isset($_SESSION['basket'][$i]['old_price'])){
+                $sub_total += $_SESSION['basket'][$i]['old_price'] * $_SESSION['basket'][$i]['count']* $_SESSION['currency']['cef'];
+            }
         }
+
 
         require_once(ROOT.'/views/order.php');
 
@@ -132,8 +154,8 @@ class BasketController
 
     public function actionOrderResult(){
         $pages = Page::getPage();
-        $page_info = Page::getPageInfo($uri);
-
+        //$page_info = Page::getPageInfo($uri);
+        $topCat = Cat::get_top_5();
 
         if(isset($_POST['send'], $_POST['email'], $_POST['phone'], $_POST['first_name'], $_POST['last_name'], $_POST['address']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['first_name']) && !empty($_POST['last_name'])){
 
@@ -143,6 +165,10 @@ class BasketController
                 if(isset($_POST['save']) && !empty($_POST['save'])){
                     $info['save'] = $_POST['save'];
                 }
+                if(isset($_SESSION['basket'][0]['coupon']['name']) && !empty($_SESSION['basket'][0]['coupon']['name'])){
+                    $info['coupon'] = $_SESSION['basket'][0]['coupon']['name'];
+                }
+
                 $info['id'] = $_SESSION['user']['id'];
                 Basket::addClient($info);
                 $info['type'] = 'client';
@@ -170,17 +196,63 @@ class BasketController
 
             }
             else{
+                header('refresh:3;url=/catalog/index/0/1');
                 require_once(ROOT.'/views/order.php');
                 echo "<script type='text/javascript'>showAlert('Помилка в створенні замовлення.', 'danger');</script>";
-                header('refresh:3;url=/catalog/index/0/1');
             }
         }
         else{
+            header('refresh:3;url=/order');
             require_once(ROOT.'/views/order.php');
             echo "<script type='text/javascript'>showAlert('Помилка в передачі даних', 'warning');</script>";
-            header('refresh:3;url=/order');
+        }
+
+        return true;
+    }
+
+    public function actionCouponCheck(){
+
+        header("refresh:3;/order");
+
+        if(isset($_POST['send'], $_POST['coupon'])){
+
+            echo $_POST['coupon'];
+
+            $coupon = Coupon::activate($_POST['coupon']);
+
+            if(isset($coupon) && $coupon != false){
+                //print_r($_SESSION['basket']);
+                $check = true;
+
+                if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+                    $check = User::couponCheck($_SESSION['user']['id'], $coupon['coupon']);
+                }
+
+                if($check) {
+
+                    for ($i = 0; $i < count($_SESSION['basket']); $i++) {
+                        $_SESSION['basket'][$i]['coupon']['value'] = $coupon['value'];
+                        $_SESSION['basket'][$i]['coupon']['name'] = $coupon['coupon'];
+                        $_SESSION['basket'][$i]['old_price'] = $_SESSION['basket'][$i]['price'];
+                        $_SESSION['basket'][$i]['price'] = $_SESSION['basket'][$i]['price'] - ($_SESSION['basket'][0]['coupon']['value'] / 100 * $_SESSION['basket'][$i]['price']);
+                    }
+
+                    require_once(ROOT . '/views/order.php');
+                    echo "<script type='text/javascript'>showAlert('Купон успішно застосовано', 'success');</script>";
+                }
+                else{
+                    require_once(ROOT.'/views/order.php');
+                    echo "<script type='text/javascript'>showAlert('Ви вже використали цей купон', 'warning');</script>";
+                }
+            }
+            else{
+                require_once(ROOT.'/views/order.php');
+                echo "<script type='text/javascript'>showAlert('Помилка в застосуванні купона', 'warning');</script>";
+            }
 
         }
+
+
 
         return true;
     }

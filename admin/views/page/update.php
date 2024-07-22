@@ -1,6 +1,7 @@
 <?php
 require_once(ROOT.'/views/head.php');
 ?>
+
     <div class="page-wrapper">
         <div class="content-wrapper">
             <!-- START PAGE CONTENT-->
@@ -75,6 +76,22 @@ require_once(ROOT.'/views/head.php');
             </footer>
         </div>
     </div>
+    <script type="text/javascript" src="/admin/fckeditor/fckeditor.js"></script>
+    <script  type="text/javascript">
+
+        window.onload = function()
+        {
+            //var sBasePath = document.location.href.substring(0,document.location.href.lastIndexOf('update.php')) ;
+            //var sBasePath = '/admin/views/page/update.php';
+            //alert(sBasePath);
+            var oFCKeditor3 = new FCKeditor( 'fullContent',"550", "350" ) ;
+            oFCKeditor3.BasePath	= "/admin/fckeditor/"  ;
+            oFCKeditor3.Config['CustomConfigurationsPath']='/admin/js/config.js';
+            oFCKeditor3.ToolbarSet="Custom";
+            oFCKeditor3.ReplaceTextarea() ;
+
+        }
+    </script>
 <?php
 require_once(ROOT.'/views/end.php');
 ?>

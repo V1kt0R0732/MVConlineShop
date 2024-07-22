@@ -4,10 +4,12 @@ class Router
 {
 
     private $routes;
+    private $status;
 
     public function __construct(){
 
         $this->routes = require_once(ROOT.'/config/routes.php');
+        $this->status = false;
 
     }
 
@@ -52,6 +54,7 @@ class Router
                     $result = call_user_func_array(array($controllerObject, $actionName), $parametrs);
 
                     if($result != null){
+                        $this->status = true;
                         break;
                     }
 
@@ -60,6 +63,9 @@ class Router
             }
         }
 
+        if(!$this->status){
+            header("location:/admin/user/login");
+        }
     }
 
     public function getURI(){

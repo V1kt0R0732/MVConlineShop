@@ -41,7 +41,7 @@ class Order
                 $i_limit = $i_visitor;
             }
 
-            $query = "select relationOrder.id as id, idUser, countCat as count, products.count as total_count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status}";
+            $query = "select relationOrder.id as id, idUser, countCat as count, products.count as total_count, relationOrder.status as order_status, dataCat, relationOrder.description as description, relationOrder.adress as adress, type, first_name, last_name, email, phone, products.name as product, price, photo_name as photo, coupons.value as coupon_value, coupons.coupon as coupon_name from products inner join relationOrder on products.id = relationOrder.idCat inner join {$type} on {$type}.id = relationOrder.idUser left join photo on photo.id_tovar = relationOrder.idCat left join coupons on relationOrder.coupon = coupons.coupon where (photo.status = 1 or photo.status is null) and relationOrder.status = {$status}";
 
             if(isset($sort) && !empty($sort)){
                 $query .= " order by {$sort[0]} $sort[1]";
@@ -65,7 +65,6 @@ class Order
             else{
                 $num_2++;
             }
-            $grand_price += $row['price'] * $row['count'];
 
             if(!isset($orders[$num]['status'])){
                 $orders[$num]['status'] = 'good';
@@ -88,15 +87,23 @@ class Order
             $orders[$num]['first_name'] = $row['first_name'];
             $orders[$num]['last_name'] = $row['last_name'];
             $orders[$num]['email'] = $row['email'];
-            $orders[$num]['grand_price'] = $grand_price;
             $orders[$num]['adress'] = $row['adress'];
             $orders[$num]['desc'] = $row['description'];
+            $orders[$num]['products'][$num_2]['coupon_name'] = $row['coupon_name'];
+            $orders[$num]['products'][$num_2]['coupon_value'] = $row['coupon_value'];
             $orders[$num]['products'][$num_2]['name'] = $row['product'];
+            if(isset($row['coupon_value']) && !empty($row['coupon_value'])){
+                $orders[$num]['products'][$num_2]['total_price'] = ($row['price']-($row['coupon_value']/100*$row['price'])) * $row['count'];
+            }
+            else{
+                $orders[$num]['products'][$num_2]['total_price'] = $row['price'] * $row['count'];
+            }
+            $grand_price += $orders[$num]['products'][$num_2]['total_price'];
+            $orders[$num]['grand_price'] = $grand_price;
             $orders[$num]['products'][$num_2]['price'] = $row['price'];
             $orders[$num]['products'][$num_2]['photo'] = $row['photo'];
             $orders[$num]['products'][$num_2]['count'] = $row['count'];
             $orders[$num]['products'][$num_2]['num'] = $num_2 + 1;
-            $orders[$num]['products'][$num_2]['total_price'] = $row['price'] * $row['count'];
 
 
             $last_first_name = $row['first_name'];

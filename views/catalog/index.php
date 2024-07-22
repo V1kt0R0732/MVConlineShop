@@ -24,30 +24,38 @@ require_once(ROOT.'/views/header.php');
                                 </select>
                             </div>
                         </div>
-                    <div class="product__view--mode__list product__short--by align-items-center d-none d-lg-flex">
-                        <label class="product__view--label">Sort By :</label>
-                        <div class="select shop__header--select">
-                            <select class="product__view--select" name="sort">
-                                <option value="0" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 0) echo 'selected'?>>Nothing</option>
-                                <option value="price_asc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'price_asc') echo 'selected'?>>Sort by Prise Asc</option>
-                                <option value="price_desc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'price_desc') echo 'selected'?>>Sort by Price Desc</option>
-                                <option value="name_asc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'name_asc') echo 'selected' ?>>Sort by Name Asc</option>
-                                <option value="name_desc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'name_desc') echo 'selected' ?>>Sort by Name Desc</option>
-                            </select>
+                        <div class="product__view--mode__list product__short--by align-items-center d-none d-lg-flex">
+                            <label class="product__view--label">Sort By :</label>
+                            <div class="select shop__header--select">
+                                <select class="product__view--select" name="sort">
+                                    <option value="0" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 0) echo 'selected'?>>Nothing</option>
+                                    <option value="price_asc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'price_asc') echo 'selected'?>>Sort by Prise Asc</option>
+                                    <option value="price_desc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'price_desc') echo 'selected'?>>Sort by Price Desc</option>
+                                    <option value="name_asc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'name_asc') echo 'selected' ?>>Sort by Name Asc</option>
+                                    <option value="name_desc" <?php if(isset($_SESSION['param']['sort']) && $_SESSION['param']['sort'] == 'name_desc') echo 'selected' ?>>Sort by Name Desc</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="product__view--mode__list product__view--search d-xl-block d-none ">
-                        <div class="product__view--search__form" >
-                            <label>
-                                <input class="product__view--search__input border-0" <?php if(isset($_SESSION['param']['search']) && !empty($_SESSION['param']['search'])) echo "value='{$_SESSION['param']['search']}'";else{ ?> placeholder="Search by" <?php } ?> type="text" name="search" >
-                            </label>
-                            <button class="product__view--search__btn"  type="submit">
-                                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
-                            </button>
+                        <div class="product__view--mode__list product__short--by align-items-center d-none d-lg-flex">
+                            <label class="product__view--label"></label>
+                            <div class="select shop__header--select">
+                                <select class="product__view--select" name="currency">
+                                    <option selected value="UAH" <?php if($_SESSION['currency']['name'] == 'UAH') echo 'selected' ?>>UAH</option>
+                                    <option value="USD" <?php if($_SESSION['currency']['name'] == 'USD') echo 'selected' ?>>USD</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <div class="product__view--mode__list product__view--search d-xl-block d-none ">
+                            <div class="product__view--search__form" >
+                                <label>
+                                    <input class="product__view--search__input border-0" <?php if(isset($_SESSION['param']['search']) && !empty($_SESSION['param']['search'])) echo "value='{$_SESSION['param']['search']}'";else{ ?> placeholder="Search by" <?php } ?> type="text" name="search" >
+                                </label>
+                                <button class="product__view--search__btn"  type="submit">
+                                    <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
+                                </button>
+                            </div>
+                        </div>
                     </form>
-
                     <div class="product__view--mode__list">
                         <div class="product__tab--one product__grid--column__buttons d-flex justify-content-center">
                             <button class="product__grid--column__buttons--icons active" aria-label="grid btn" data-toggle="tab" data-target="#product_grid">
@@ -86,6 +94,7 @@ require_once(ROOT.'/views/header.php');
                         <input type="hidden" name="clear" value="1">
                         <button class="btn price__filter--btn" type="submit">Clear</button>
                     </form>
+
                 </div>
                 <p class="product__showing--count">Showing <?php echo count($product) ?> of <?php echo $_SESSION['param']['note']*$count_pages;?> results</p>
             </div>
@@ -537,6 +546,7 @@ require_once(ROOT.'/views/header.php');
                                                     <div class="product__badge">
                                                         <span class="product__badge--items sale">Sale</span>
                                                     </div>
+                                                    <!--
                                                     <ul class="product__items--action">
                                                         <li class="product__items--action__list">
                                                             <a class="product__items--action__btn" href="wishlist.html">
@@ -555,14 +565,15 @@ require_once(ROOT.'/views/header.php');
 <!--                                                                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256"/><path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>-->
 <!--                                                                <span class="visually-hidden">Compare</span>-->
 <!--                                                            </a>-->
-<!--                                                        </li>-->
+<!--                                                        </li>
                                                     </ul>
+                                                    -->
                                                 </div>
                                                 <div class="product__items--content product__items2--content text-center">
                                                     <a class="add__to--cart__btn" href="/basket/add/<?=$tmp['id']?>">+ Add to cart</a>
                                                     <h3 class="product__items--content__title h4"><a href="/product/detail/<?=$tmp['id']?>/0"><?=$tmp['name']?></a></h3>
                                                     <div class="product__items--price">
-                                                        <span class="current__price">$<?=$tmp['price']?></span>
+                                                        <span class="current__price"><?=$_SESSION['currency']['sym']?><?=$tmp['price']?></span>
 <!--                                                        <span class="old__price">$59.00</span>-->
                                                     </div>
                                                     <!--
@@ -654,7 +665,7 @@ require_once(ROOT.'/views/header.php');
                                                 <div class="product__list--items__content">
                                                     <h3 class="product__list--items__content--title h4 mb-10"><a href="/catalog/detail/<?=$tmp['id']?>/0"><?=$tmp['name']?></a></h3>
                                                     <div class="product__items--price mb-10">
-                                                        <span class="current__price"><?=$tmp['price']?></span>
+                                                        <span class="current__price"><?=$_SESSION['currency']['sym']?><?=$tmp['price']?></span>
 <!--                                                        <span class="old__price">$40.00</span>-->
                                                     </div>
                                                     <!--

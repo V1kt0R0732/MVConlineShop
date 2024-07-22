@@ -16,9 +16,17 @@ const preLoader = function () {
   let preloaderWrapper = document.getElementById("preloader");
   window.onload = () => {
     preloaderWrapper.classList.add("loaded");
+    $(".order_result_green").hide();
+    $(".result_order_title_green").click(
+        function(){ // структура
+          // alert(1);
+          $(this).next("tbody").toggle(); // this - отримуємо елемент з назви кліка некст- наступний елемент.
+        }
+    );
   };
 };
 preLoader();
+
 
 var showAlert = function (message, type) {
   var alert = document.getElementById("alert-alert");
